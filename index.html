@@ -2,12 +2,46 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>オリジナルサイト</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+  
+  </style>
+
+  <title>JS漢字チェッカー(仮）</title>
+
 </head>
 <body>
-  <h1>オリジナルサイト</h1>
-  <p>はじめてのオリジナルサイトです</p>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
+
+<h1>漢字チェッカー（仮）</h1>
+<p>学年別学習漢字、常用漢字表外漢字と、標準的でない字体をチェックします<br><small>　※サロゲートペアで表示される文字は正しくチェックできません。また字体はJIS2004(JIS X 0213:2004)の例示字体を使用しており、それ以前のJIS規格に準拠したフォントでは字体が異なる場合があります</small><br><br>凡例：
+ <span class="kanji joyo kyoiku y1">学</span>
+<span class="kanji joyo kyoiku y1">年</span>
+<span class="kanji joyo kyoiku y4">別</span>
+<span class="kanji joyo kyoiku y2">教</span>
+<span class="kanji joyo kyoiku y3">育</span>
+<span class="kanji joyo kyoiku y3">漢</span>
+<span class="kanji joyo kyoiku y1">字</span>
+  <small>（数字は学年）</small> 
   
+  <span><br>　　　常用漢字 </span>
+  <!-- <span class="kanji jinmei">人名用漢字</span> -->
+  <span class="kanji">表外漢字</span>
+  <span class="kanji joyo jitai">標準的でない字体</span>
+  <span class="kanji surrogate">サロゲートペアの字体</span>
+  <!-- <span class="kanji itaiji">異体字セレクタの字体</span> -->
+</p>
+
+ <textarea id="input2" placeholder="ここに文章を入力してください"></textarea>
+<br>
+ <button>Check!</button>
+ <!-- <button>Clear All!</button> -->
+
+
+  <p id="output" type="text"></p>
 </body>
 </html>
