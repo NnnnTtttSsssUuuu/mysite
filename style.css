@@ -57,14 +57,18 @@ p {
   background: greenyellow;
 }
 
-.kanji.surrogate{
+/* .kanji.surrogate{
   color:white;
   background:black;
+} */
+
+.kanji.shikaru{
+  color:black;
 }
 
-.kanji.surrogate.shikaru{
-  color: black;
-  background: transparent;
+.kanji.salomoji{
+  color:red;
+  /* background: transparent; */
 }
 
 .kanji.itaiji{
