@@ -6,24 +6,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <style>
-
-  </style>
 
   <title>JS漢字チェッカー(仮）</title>
 
 </head>
 
 <body>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="main.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 
-  <h1>漢字チェッカー（仮）<br>2023/12/28版</h1>
+
+  <h1>漢字チェッカー（仮）</h1>
   <p>学年別学習漢字、常用漢字表外漢字と、標準的でない字体をチェックします
     <br><small>　※字体はJIS2004(JIS X 0213:2004)の例示字体を使用します。それ以前のJIS規格に準拠したフォントとは字体が異なる場合があります。
       <br>　※サロゲートペアで表示される文字のチェックに対応しました(2023/12/27)
-      <br>　※標準的な字体を[=　]内に表示する機能を付けました(2023/12/28)</small>
+      <br>　※標準的な字体を[=　]内に表示する機能を付けました(2023/12/28)
+      <br>　※内部コードを大きく変更しました(2024/1/2)</small>
+      
     <br><br>凡例：
     <span class="kanji joyo kyoiku y1">学</span><span class="kanji joyo kyoiku y1">年</span><span
       class="kanji joyo kyoiku y4">別</span><span class="kanji joyo kyoiku y2">教</span><span
@@ -39,13 +38,15 @@
     <!-- <span class="kanji itaiji">異体字セレクタの字体</span> -->
   </p>
 
-  <textarea id="input2" placeholder="ここに文章を入力してください"></textarea>
-  <br><br>
-  <button>Check!</button>
-  <!-- <button>Clear All!</button> -->
+  <textarea id="input" placeholder="ここに文章を入力してください"></textarea>
+  <br>
+  <button id = "checkButton">Check!</button>
+  <button id = "clearButton">Clear Text!</button>
 
 
   <p id="output" type="text"></p>
+
+  <script src="main.js"></script>
 </body>
 
 </html>
