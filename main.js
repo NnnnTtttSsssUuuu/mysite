@@ -2,6 +2,7 @@
 
 //12/28 sbstr、sliceをsubstringで統一
 //1/2 jQueryを使わないコードに変更完了
+// 1/12 iPhoneへの対応、暫定的に完了
 
 
 {
@@ -15,7 +16,7 @@
 
     const inputText = document.querySelector('#input').value;
     let hyojunkaText = "";
-    let outputText = document.querySelector('#output');
+    const outputText = document.querySelector('#output');
     outputText.textContent = "";
 
     // ★以下、標準的な字体を表示するループ１
@@ -27,7 +28,8 @@
 
       // 単一コード文字の対応
       if (isJitaiKakunin(c)) {
-        c = c + "[=" + getHyojun(c) + "] ";
+        let hyojun = checkString.charAt(checkString.indexOf(c) + 1);
+        c = c + "[=" + hyojun + "] ";
       }
 
       // サロゲートペア「𨦇𩜙卉兔眞𠮷𥡴𨻶」の対応
@@ -89,7 +91,6 @@
       let klass = [], year;
 
       if (c === "\n") {
-        // $("<span class='newline'/>").appendTo(out2);
         let spanElement = document.createElement("span");
         spanElement.className = "newline";
         outputText.appendChild(spanElement);
@@ -133,17 +134,31 @@
           klass.push("salomoji");
         }
         if (c === "\uD87E" && d === "\uDD45") {
-          klass.push("joyo salomoji");
+          klass.push("salomoji");
         }
         if (c === "\uD842" && d === "\uDFB7") {
-          klass.push("joyo salomoji");
+          klass.push("salomoji");
         }
         if (c === "\uD856" && d === "\uDC74") {
-          klass.push("joyo salomoji");
+          klass.push("salomoji");
         }
         if (c === "\uD863" && d === "\uDEF6") {
-          klass.push("joyo salomoji");
+          klass.push("salomoji");
         }
+
+        // 常用漢字の異体字を常用漢字として扱う場合は下記コードがイキ
+        // if (c === "\uD87E" && d === "\uDD45") {
+        //   klass.push("joyo salomoji");
+        // }
+        // if (c === "\uD842" && d === "\uDFB7") {
+        //   klass.push("joyo salomoji");
+        // }
+        // if (c === "\uD856" && d === "\uDC74") {
+        //   klass.push("joyo salomoji");
+        // }
+        // if (c === "\uD863" && d === "\uDEF6") {
+        //   klass.push("joyo salomoji");
+        // }
 
         // 異体字セレクタの対応
         if (isItaijiSelector(d)) {
@@ -165,7 +180,7 @@
 
   // クリアボタン押下の処理
   document.querySelector('#clearButton').addEventListener('click', () => {
-    let outputText = document.querySelector('#output');
+    const outputText = document.querySelector('#output');
     document.querySelector('textarea').value = '';
     outputText.textContent = "";
   });
@@ -198,9 +213,6 @@
     return /^[\uFE00-\uFE0F\uDB40]+$/.test(c);
   }
 
-  function getHyojun(c) {
-    return checkString.charAt(checkString.indexOf(c) + 1);
-  }
 
   function getYearOfKyoikuKanji(c) {
     if (/^[一右雨円王音下火花貝学気九休玉金空月犬見五口校左三山子四糸字耳七車手十出女小上森人水正生青夕石赤千川先早草足村大男竹中虫町天田土二日入年白八百文木本名目立力林六]+$/.test(c)) { return 1; }
