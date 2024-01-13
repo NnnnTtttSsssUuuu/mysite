@@ -2,7 +2,7 @@
 
 //12/28 sbstr、sliceをsubstringで統一
 //1/2 jQueryを使わないコードに変更完了
-// 1/12 iPhoneへの対応、暫定的に完了
+// 1/13 iPhoneへの対応を完了
 
 
 {
@@ -13,18 +13,18 @@
   // チェックボタン押下の処理
 
   document.querySelector('#checkButton').addEventListener('click', () => {
-
     const inputText = document.querySelector('#input').value;
-    let hyojunkaText = "";
     const outputText = document.querySelector('#output');
     outputText.textContent = "";
+    let hyojunkaText = "";
 
     // ★以下、標準的な字体を表示するループ１
     for (let i = 0; i < inputText.length; i++) {
-
       let c = inputText.substring(i, i + 1);
       let d = inputText.substring(i + 1, i + 2);
       let e = inputText.substring(i + 2, i + 3);
+
+      // console.log(c.charCodeAt(0).toString(16));
 
       // 単一コード文字の対応
       if (isJitaiKakunin(c)) {
@@ -66,14 +66,14 @@
         i++;
       }
 
-      // 異体字セレクタ文字の対応
-      if (isItaijiSelector(d)) {
-        c = c + d + e + "[=" + c + "] ";
-      }
-
       // 「叱」字の対応
       if (c === "叱") {
         c = c + "[=" + "𠮟" + "] ";
+      }
+
+      // 異体字セレクタ文字の対応
+      if (isItaijiSelector(d)) {
+        c = c + d + e + "[=" + c + "] ";
       }
 
       hyojunkaText = hyojunkaText + c;
@@ -85,9 +85,9 @@
 
     //★以下、文字内容に合わせたCSSを追加するループ２
     for (let i = 0; i < hyojunkaText.length; i++) {
-
       let c = hyojunkaText.substring(i, i + 1);
       let d = hyojunkaText.substring(i + 1, i + 2);
+      let e = hyojunkaText.substring(i + 2, i + 3);
       let klass = [], year;
 
       if (c === "\n") {
@@ -117,32 +117,51 @@
           klass.push("jitai");
 
         // 「𠮟」の対応
-        if (c === "\uD842" && d === "\uDF9F")
+        if (c === "\uD842" && d === "\uDF9F") {
+          c = c + d;
+          i++;
           klass.push("joyo shikaru");
+        }
 
         // 「𨦇𩜙卉兔眞𠮷𥡴𨻶」の対応
         if (c === "\uD862" && d === "\uDD87") {
+          c = c + d;
+          i++;
           klass.push("salomoji");
         }
         if (c === "\uD865" && d === "\uDF19") {
+          c = c + d;
+          i++;
           klass.push("salomoji");
         }
         if (c === "\uD87E" && d === "\uDC2C") {
+          c = c + d;
+          i++;
           klass.push("salomoji");
         }
         if (c === "\uD87E" && d === "\uDC0F") {
+          c = c + d;
+          i++;
           klass.push("salomoji");
         }
         if (c === "\uD87E" && d === "\uDD45") {
+          c = c + d;
+          i++;
           klass.push("salomoji");
         }
         if (c === "\uD842" && d === "\uDFB7") {
+          c = c + d;
+          i++;
           klass.push("salomoji");
         }
         if (c === "\uD856" && d === "\uDC74") {
+          c = c + d;
+          i++;
           klass.push("salomoji");
         }
         if (c === "\uD863" && d === "\uDEF6") {
+          c = c + d;
+          i++;
           klass.push("salomoji");
         }
 
@@ -162,6 +181,8 @@
 
         // 異体字セレクタの対応
         if (isItaijiSelector(d)) {
+          c = c + d + e;
+          i = i + 2;
           klass.push("itaijiselect");
         }
       }
