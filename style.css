@@ -60,20 +60,6 @@ p {
   color: red;
 }
 
-.daijisen::after {
-  content: '辞';
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 1em;
-  height: 1em;
-  line-height: 1;
-  margin: -0.9em 0 0 -0.5em;
-  font-size: 50%;
-  text-align center;
-  color: red;
-}
 
 .kyoiku::after {
   display: block;
