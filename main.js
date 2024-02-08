@@ -19,18 +19,13 @@
   // フォントで表示される異体字リスト  標準字・異体字(異体字セレクタ）の順で並ぶ
   const checkString3 = '茨茨󠄀淫淫󠄀餌餌󠄀牙牙󠄀葛葛󠄀僅僅󠄀隙隙󠄀煎煎󠄀詮詮󠄀遡遡󠄀遜遜󠄀捗捗󠄀溺溺󠄀賭賭󠄀謎謎󠄀箸箸󠄀蔽蔽󠄀蔑蔑󠄀餅餅󠄀嘲嘲󠄀逢逢󠄀芦芦󠄀飴飴󠄀溢溢󠄀鰯鰯󠄀迂迂󠄀厩厩󠄀噂噂󠄀襖襖󠄀迦迦󠄀恢恢󠄀晦晦󠄀鞄鞄󠄀翰翰󠄀翫翫󠄀徽徽󠄀祇祇󠄀汲汲󠄀笈笈󠄀卿卿󠄀饗饗󠄀喰喰󠄀櫛櫛󠄁屑屑󠄀祁祁󠄀倦倦󠄀捲捲󠄀諺諺󠄀巷巷󠄀鵠鵠󠄀甑甑󠄀榊榊󠄀薩薩󠄀鯖鯖󠄀錆錆󠄀餐餐󠄀杓杓󠄀灼灼󠄀酋酋󠄀薯薯󠄀藷藷󠄀哨哨󠄀鞘鞘󠄀蝕蝕󠄀訊訊󠄀逗逗󠄀摺摺󠄀撰撰󠄀煽煽󠄀穿穿󠄀箭箭󠄀噌噌󠄀揃揃󠄀腿腿󠄀蛸蛸󠄀辿辿󠄀樽樽󠄀歎歎󠄀註註󠄀瀦瀦󠄀槌槌󠄀鎚鎚󠄀辻辻󠄀鄭鄭󠄀擢擢󠄀兎兎󠄀堵堵󠄀屠屠󠄀瀞瀞󠄀遁遁󠄀灘灘󠄀楢楢󠄀禰禰󠄀牌牌󠄀這這󠄀秤秤󠄀叛叛󠄀挽挽󠄀樋樋󠄀稗稗󠄀逼逼󠄀謬謬󠄀豹豹󠄀廟廟󠄀瀕瀕󠄀瞥瞥󠄀篇篇󠄀娩娩󠄀庖庖󠄀蓬蓬󠄀鱒鱒󠄀迄迄󠄀儲儲󠄀籾籾󠄀鑓鑓󠄀愈愈󠄀猷猷󠄀漣漣󠄁煉煉󠄁簾簾󠄀榔榔󠄀冤冤󠄀叟叟󠄀囀囀󠄀扁扁󠄀疼疼󠄀篝篝󠄀艘艘󠄀芒芒󠄀蠅蠅󠄀訝訝󠄀騙騙󠄀鴉鴉󠄀';
 
-
+  // const checkString4 = '茨茨󠄀';
 
 
   // チェックボタン押下の処理
   document.querySelector('#checkButton').addEventListener('click', () => {
     const inputText = document.querySelector('#input').value;
     const outputText = document.querySelector('#output');
-        //文字列の最後に教育漢字があると、ルビ付きでコピペできない現象を回避
-    // outputText.insertAdjacentHTML('beforeend',"\u000A");  //改行
-    // outputText.insertAdjacentHTML('beforeend',"\u0444");  //ロシア文字
-    // outputText.insertAdjacentHTML('beforeend',"終");  //
-
     outputText.textContent = "";
     let hyojunkaText = "";
 
@@ -76,6 +71,10 @@
         continue;
       }
 
+
+
+
+
       // 同一コードで異体字の生じる可能性のある文字の対応（サロゲートペア編）
       // if (checkString2.indexOf(c) % 3 === 0) {
       //   let hyojun = checkString2.charAt(checkString2.indexOf(c) + 1) + checkString2.charAt(checkString2.indexOf(c) + 2);
@@ -109,67 +108,79 @@
         continue;
       }
 
+
       if (isKanji(c)) {
         klass.push("kanji");
 
-        if (year = getYearOfKyoikuKanji(c)) {
-          let kyoiku = "<ruby>" + c + "<rt>" + year + "</rt></ruby>"
-          outputText.insertAdjacentHTML('beforeend', kyoiku);
-          klass.push("joyo");
-          continue;
-        }
 
-        if (isJoyoKanji(c))
-          klass.push("joyo");
-
-        if (checkString.indexOf(c) % 2 == 1)
-          klass.push("jitai");
-
-
-        // 「叱」の対応
-        if (c === "叱")
-          klass.push("jitai");
-
-        // 「𠮟」の対応
-        if (c === "\uD842" && d === "\uDF9F") {
-          c = c + d;
-          i++;
-          klass.push("joyo shikaru");
-        }
-
-        // サロゲートペア文字の対応
-        if (checkString2.indexOf(c + d) % 3 === 1) {
-          c = c + d;
-          i++;
-          klass.push("jitai");
-        }
-
-        // 異体字セレクタの対応
+        // // 異体字セレクタの対応
         if (isItaijiSelector(d)) {
           c = c + d + e;
           i = i + 2;
           klass.push("itaijiselect");
         }
-      }
 
-      let spanElement = document.createElement("span");
-      spanElement.textContent = c;
-      let classList = klass.join(" ");
-      if (classList) {
-        spanElement.className = classList;
-      }
-      outputText.appendChild(spanElement);
 
-    };
-    // ループ２終わり 
+          // if (getYearOfKyoikuKanji(c)  && !isItaijiSelector(c)) {
+          // year = getYearOfKyoikuKanji(c);
+          if (year = getYearOfKyoikuKanji(c)) {
+            let kyoiku = "<ruby>" + c + "<rt>" + year + "</rt></ruby>"
+            outputText.insertAdjacentHTML('beforeend', kyoiku);
+            klass.push("joyo");
+            continue;
+          }
 
-    //文字列の最後に教育漢字があると、ルビ付きでコピペできない現象を回避
-    outputText.insertAdjacentHTML('beforeend',"\u200B\u000A");  //ゼロ幅スペース＋改行
-    // outputText.insertAdjacentHTML('beforeend',"\u000A");  //改行　NG
-    // outputText.insertAdjacentHTML('beforeend',"　");  //全角スペース
-    // outputText.insertAdjacentHTML('beforeend'," ");  //半角スペース　　NG
+          if (isJoyoKanji(c))
+            klass.push("joyo");
 
-  });
+          if (checkString.indexOf(c) % 2 == 1)
+            klass.push("jitai");
+
+
+          // 「叱」の対応
+          if (c === "叱")
+            klass.push("jitai");
+
+          // 「𠮟」の対応
+          if (c === "\uD842" && d === "\uDF9F") {
+            c = c + d;
+            i++;
+            klass.push("joyo shikaru");
+          }
+
+          // サロゲートペア文字の対応
+          if (checkString2.indexOf(c + d) % 3 === 1) {
+            c = c + d;
+            i++;
+            klass.push("jitai");
+          }
+
+          // // 異体字セレクタの対応
+          // if (isItaijiSelector(d)) {
+          //   c = c + d + e;
+          //   i = i + 2;
+          //   klass.push("itaijiselect");
+          // }
+        }
+
+        let spanElement = document.createElement("span");
+        spanElement.textContent = c;
+        let classList = klass.join(" ");
+        if (classList) {
+          spanElement.className = classList;
+        }
+        outputText.appendChild(spanElement);
+
+      };
+      // ループ２終わり 
+
+      //文字列の最後に教育漢字があると、ルビ付きでコピペできない現象を回避
+      outputText.insertAdjacentHTML('beforeend', "\u200B\u000A");  //ゼロ幅スペース＋改行
+      // outputText.insertAdjacentHTML('beforeend',"\u000A");  //改行　NG
+      // outputText.insertAdjacentHTML('beforeend',"　");  //全角スペース
+      // outputText.insertAdjacentHTML('beforeend'," ");  //半角スペース　　NG
+
+    });
 
   // クリアボタン押下の処理
   document.querySelector('#clearButton').addEventListener('click', () => {
