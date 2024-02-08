@@ -26,6 +26,11 @@
   document.querySelector('#checkButton').addEventListener('click', () => {
     const inputText = document.querySelector('#input').value;
     const outputText = document.querySelector('#output');
+        //文字列の最後に教育漢字があると、ルビ付きでコピペできない現象を回避
+    // outputText.insertAdjacentHTML('beforeend',"\u000A");  //改行
+    // outputText.insertAdjacentHTML('beforeend',"\u0444");  //ロシア文字
+    // outputText.insertAdjacentHTML('beforeend',"終");  //
+
     outputText.textContent = "";
     let hyojunkaText = "";
 
@@ -66,7 +71,7 @@
       // 同一コードで異体字の生じる可能性のある文字の対応（異体字セレクタ編）
       if (checkString3.indexOf(c) % 4 === 0) {
         let hyojun = checkString3.charAt(checkString3.indexOf(c) + 1) + checkString3.charAt(checkString3.indexOf(c) + 2) + checkString3.charAt(checkString3.indexOf(c) + 3);
-        c = c + "[▵" + hyojun + "] ";
+        c = c + "[△" + hyojun + "] ";
         hyojunkaText = hyojunkaText + c;
         continue;
       }
@@ -112,7 +117,7 @@
           outputText.insertAdjacentHTML('beforeend', kyoiku);
           klass.push("joyo");
           continue;
-         }
+        }
 
         if (isJoyoKanji(c))
           klass.push("joyo");
@@ -157,6 +162,12 @@
 
     };
     // ループ２終わり 
+
+    //文字列の最後に教育漢字があると、ルビ付きでコピペできない現象を回避
+    outputText.insertAdjacentHTML('beforeend',"\u200B\u000A");  //ゼロ幅スペース＋改行
+    // outputText.insertAdjacentHTML('beforeend',"\u000A");  //改行　NG
+    // outputText.insertAdjacentHTML('beforeend',"　");  //全角スペース
+    // outputText.insertAdjacentHTML('beforeend'," ");  //半角スペース　　NG
 
   });
 
