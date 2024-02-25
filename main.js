@@ -6,6 +6,7 @@
 //2/5 内部コード整理
 //2/6 漢字配当学年をルビで表示する
 //2/8 エラー修正
+//2/25 CJK部首補助、康熙部首に対応。微少な修正
 
 
 {
@@ -23,12 +24,15 @@
   // const checkString4 = '茨茨󠄀';
 
 
+  document.getElementById('input').focus();
+
   // チェックボタン押下の処理
   document.querySelector('#checkButton').addEventListener('click', () => {
     const inputText = document.querySelector('#input').value;
     const outputText = document.querySelector('#output');
     outputText.textContent = "";
     let hyojunkaText = "";
+    let bushu = 0;
 
     // ★以下、標準的な字体を表示するループ１
     for (let i = 0; i < inputText.length; i++) {
@@ -37,6 +41,8 @@
       let e = inputText.substring(i + 2, i + 3);
 
       // console.log(c.charCodeAt(0).toString(16));
+
+
 
       // 単一コード文字の対応
       if (checkString.indexOf(c) % 2 === 1) {
@@ -51,6 +57,7 @@
         c = c + d + e + "[=" + c + "] ";
         i = i + 2;
         hyojunkaText = hyojunkaText + c;
+        // console.log("異体字セレクタ認識", c)
         continue;
       }
 
@@ -63,7 +70,6 @@
         continue;
       }
 
-
       // 同一コードで異体字の生じる可能性のある文字の対応（異体字セレクタ編）
       if (checkString3.indexOf(c) % 4 === 0) {
         let hyojun = checkString3.charAt(checkString3.indexOf(c) + 1) + checkString3.charAt(checkString3.indexOf(c) + 2) + checkString3.charAt(checkString3.indexOf(c) + 3);
@@ -71,10 +77,6 @@
         hyojunkaText = hyojunkaText + c;
         continue;
       }
-
-
-
-
 
       // 同一コードで異体字の生じる可能性のある文字の対応（サロゲートペア編）
       // if (checkString2.indexOf(c) % 3 === 0) {
@@ -122,71 +124,88 @@
         }
 
 
-          // if (getYearOfKyoikuKanji(c)  && !isItaijiSelector(c)) {
-          // year = getYearOfKyoikuKanji(c);
-          if (year = getYearOfKyoikuKanji(c)) {
-            let kyoiku = "<ruby>" + c + "<rt>" + year + "</rt></ruby>"
-            outputText.insertAdjacentHTML('beforeend', kyoiku);
-            klass.push("joyo");
-            continue;
-          }
-
-          if (isJoyoKanji(c))
-            klass.push("joyo");
-
-          if (checkString.indexOf(c) % 2 == 1)
-            klass.push("jitai");
-
-
-          // 「叱」の対応
-          if (c === "叱")
-            klass.push("jitai");
-
-          // 「𠮟」の対応
-          if (c === "\uD842" && d === "\uDF9F") {
-            c = c + d;
-            i++;
-            klass.push("joyo shikaru");
-          }
-
-          // サロゲートペア文字の対応
-          if (checkString2.indexOf(c + d) % 3 === 1) {
-            c = c + d;
-            i++;
-            klass.push("jitai");
-          }
-
-          // // 異体字セレクタの対応
-          // if (isItaijiSelector(d)) {
-          //   c = c + d + e;
-          //   i = i + 2;
-          //   klass.push("itaijiselect");
-          // }
+        if (year = getYearOfKyoikuKanji(c)) {
+          let kyoiku = "<ruby>" + c + "<rt>" + year + "</rt></ruby>"
+          outputText.insertAdjacentHTML('beforeend', kyoiku);
+          klass.push("joyo");
+          continue;
         }
 
-        let spanElement = document.createElement("span");
-        spanElement.textContent = c;
-        let classList = klass.join(" ");
-        if (classList) {
-          spanElement.className = classList;
+        if (isJoyoKanji(c))
+          klass.push("joyo");
+
+        if (checkString.indexOf(c) % 2 == 1)
+          klass.push("jitai");
+
+
+        // 「叱」の対応
+        if (c === "叱")
+          klass.push("jitai");
+
+        // 「𠮟」の対応
+        if (c === "\uD842" && d === "\uDF9F") {
+          c = c + d;
+          i++;
+          klass.push("joyo shikaru");
         }
-        outputText.appendChild(spanElement);
 
-      };
-      // ループ２終わり 
+        //CJK部首補助のチェック
+        if (cjkhojoBushu(c)) {
+          c = c + "[←部首] ";
+          bushu = bushu + 1;
+          klass.push("joyo jitai");
+        }
 
-      //文字列の最後に教育漢字があると、ルビ付きでコピペできない現象を回避
-      outputText.insertAdjacentHTML('beforeend', "\u200B\u000A");  //ゼロ幅スペース＋改行
-      // outputText.insertAdjacentHTML('beforeend',"\u000A");  //改行　NG
-      // outputText.insertAdjacentHTML('beforeend',"　");  //全角スペース
-      // outputText.insertAdjacentHTML('beforeend'," ");  //半角スペース　　NG
+        //康熙部首のチェック
+        if (kokiBushu(c)) {
+          c = c + "[←部首] ";
+          bushu = bushu + 1;
+          klass.push("joyo jitai");
+        }
 
-    });
+
+        // サロゲートペア文字の対応
+        if (checkString2.indexOf(c + d) % 3 === 1) {
+          c = c + d;
+          i++;
+          klass.push("jitai");
+        }
+
+        // // 異体字セレクタの対応
+        // if (isItaijiSelector(d)) {
+        //   c = c + d + e;
+        //   i = i + 2;
+        //   klass.push("itaijiselect");
+        // }
+      }
+
+      let spanElement = document.createElement("span");
+      spanElement.textContent = c;
+      let classList = klass.join(" ");
+      if (classList) {
+        spanElement.className = classList;
+      }
+      outputText.appendChild(spanElement);
+
+    };
+    // ループ２終わり 
+
+    //文字列の最後に教育漢字があると、ルビ付きでコピペできない現象を回避
+    outputText.insertAdjacentHTML('beforeend', "\u200B\u000A");  //ゼロ幅スペース＋改行
+
+    //部首の文字コード混入の場合に注記を入れる
+    if (bushu > 0) {
+      outputText.insertAdjacentHTML('afterbegin', "【注意】テキストの中に漢字の部首の文字コードが" + bushu + "字混じっています。確認してください。<hr>");
+    }
+
+
+  });
 
   // クリアボタン押下の処理
   document.querySelector('#clearButton').addEventListener('click', () => {
     const outputText = document.querySelector('#output');
-    document.querySelector('textarea').value = '';
+    document.getElementById('input').value = '';
+    document.getElementById('input').focus();
     outputText.textContent = "";
   });
 
@@ -205,6 +224,16 @@
 
   function isItaijiSelector(c) {
     return /^[\uFE00-\uFE0F\uDB40]+$/.test(c);
+  }
+
+  //CJK部首補助のチェック
+  function kokiBushu(c) {
+    return /^[\u2E80-\u2EFF]+$/.test(c);
+  }
+
+  //康熙部首のチェック
+  function cjkhojoBushu(c) {
+    return /^[\u2F00-\u2FDF]+$/.test(c);
   }
 
 

@@ -81,6 +81,10 @@ rt{
   font-size: 160%;
 }
 
+.kanji3.joyo {
+  background: transparent;
+  font-size: 240%;
+}
 .kanji2.jitai {
   color: red;
   font-size: 160%;
@@ -92,4 +96,8 @@ rt{
 
 .kanji.itaijiselect {
   color: red;
+}
+
+.small{
+  font-size: 120%;
 }
