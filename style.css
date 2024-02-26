@@ -46,6 +46,13 @@ rt{
   line-height: 2;
 }
 
+#chuuki{
+  font-family:  "YuMincho", "游明朝", "Hiragino Mincho ProN", serif;
+  width: 80%;
+  font-size: 100%;
+  line-height: 2;
+}
+
 .kyocho{
   color: red;
   font-size: 120%;

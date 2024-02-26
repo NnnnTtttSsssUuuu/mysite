@@ -7,6 +7,7 @@
 //2/6 漢字配当学年をルビで表示する
 //2/8 エラー修正
 //2/25 CJK部首補助、康熙部首に対応。微少な修正
+//2/26 空白行を詰めるなど、見栄えを微修正。
 
 
 {
@@ -21,16 +22,15 @@
   // フォントで表示される異体字リスト  標準字・異体字(異体字セレクタ）の順で並ぶ
   const checkString3 = '茨茨󠄀淫淫󠄀餌餌󠄀牙牙󠄀葛葛󠄀僅僅󠄀隙隙󠄀煎煎󠄀詮詮󠄀遡遡󠄀遜遜󠄀捗捗󠄀溺溺󠄀賭賭󠄀謎謎󠄀箸箸󠄀蔽蔽󠄀蔑蔑󠄀餅餅󠄀嘲嘲󠄀逢逢󠄀芦芦󠄀飴飴󠄀溢溢󠄀鰯鰯󠄀迂迂󠄀厩厩󠄀噂噂󠄀襖襖󠄀迦迦󠄀恢恢󠄀晦晦󠄀鞄鞄󠄀翰翰󠄀翫翫󠄀徽徽󠄀祇祇󠄀汲汲󠄀笈笈󠄀卿卿󠄀饗饗󠄀喰喰󠄀櫛櫛󠄁屑屑󠄀祁祁󠄀倦倦󠄀捲捲󠄀諺諺󠄀巷巷󠄀鵠鵠󠄀甑甑󠄀榊榊󠄀薩薩󠄀鯖鯖󠄀錆錆󠄀餐餐󠄀杓杓󠄀灼灼󠄀酋酋󠄀薯薯󠄀藷藷󠄀哨哨󠄀鞘鞘󠄀蝕蝕󠄀訊訊󠄀逗逗󠄀摺摺󠄀撰撰󠄀煽煽󠄀穿穿󠄀箭箭󠄀噌噌󠄀揃揃󠄀腿腿󠄀蛸蛸󠄀辿辿󠄀樽樽󠄀歎歎󠄀註註󠄀瀦瀦󠄀槌槌󠄀鎚鎚󠄀辻辻󠄀鄭鄭󠄀擢擢󠄀兎兎󠄀堵堵󠄀屠屠󠄀瀞瀞󠄀遁遁󠄀灘灘󠄀楢楢󠄀禰禰󠄀牌牌󠄀這這󠄀秤秤󠄀叛叛󠄀挽挽󠄀樋樋󠄀稗稗󠄀逼逼󠄀謬謬󠄀豹豹󠄀廟廟󠄀瀕瀕󠄀瞥瞥󠄀篇篇󠄀娩娩󠄀庖庖󠄀蓬蓬󠄀鱒鱒󠄀迄迄󠄀儲儲󠄀籾籾󠄀鑓鑓󠄀愈愈󠄀猷猷󠄀漣漣󠄁煉煉󠄁簾簾󠄀榔榔󠄀冤冤󠄀叟叟󠄀囀囀󠄀扁扁󠄀疼疼󠄀篝篝󠄀艘艘󠄀芒芒󠄀蠅蠅󠄀訝訝󠄀騙騙󠄀鴉鴉󠄀';
 
-  // const checkString4 = '茨茨󠄀';
-
-
   document.getElementById('input').focus();
 
   // チェックボタン押下の処理
   document.querySelector('#checkButton').addEventListener('click', () => {
     const inputText = document.querySelector('#input').value;
     const outputText = document.querySelector('#output');
+    const chuukiText = document.querySelector('#chuuki');
     outputText.textContent = "";
+    chuukiText.textContent = "";
     let hyojunkaText = "";
     let bushu = 0;
 
@@ -41,8 +41,6 @@
       let e = inputText.substring(i + 2, i + 3);
 
       // console.log(c.charCodeAt(0).toString(16));
-
-
 
       // 単一コード文字の対応
       if (checkString.indexOf(c) % 2 === 1) {
@@ -107,10 +105,11 @@
       let klass = [], year;
 
       if (c === "\n") {
-        outputText.insertAdjacentHTML('beforeend', '<br>');
+        if(d !== "\n"){
+          outputText.insertAdjacentHTML('beforeend', '<br>');
+        }
         continue;
       }
-
 
       if (isKanji(c)) {
         klass.push("kanji");
@@ -195,7 +194,7 @@
 
     //部首の文字コード混入の場合に注記を入れる
     if (bushu > 0) {
-      outputText.insertAdjacentHTML('afterbegin', "【注意】テキストの中に漢字の部首の文字コードが" + bushu + "字混じっています。確認してください。<hr>");
+      chuukiText.insertAdjacentHTML('afterbegin', "【注意】テキストの中に漢字の部首の文字コードが" + bushu + "字混じっています。確認してください。<hr>");
     }
 
 
@@ -204,9 +203,11 @@
   // クリアボタン押下の処理
   document.querySelector('#clearButton').addEventListener('click', () => {
     const outputText = document.querySelector('#output');
+    const chuukiText = document.querySelector('#chuuki');
     document.getElementById('input').value = '';
     document.getElementById('input').focus();
     outputText.textContent = "";
+    chuukiText.textContent = "";
   });
 
 
