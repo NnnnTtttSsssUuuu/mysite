@@ -1,0 +1,114 @@
+@charset "utf-8";
+
+body {
+  font-family: "YuMincho", "游明朝",  "Hiragino Mincho ProN", serif;
+  margin: 0;
+  padding: 2em 2em;
+}
+
+
+
+dt{
+  font-size 140%;
+  border-bottom: 2px solid black;
+  padding:1px 10px 0px 1.5em;
+}
+
+/* dt{
+  background: black;
+  color: white;
+  padding:1px 10px;
+  font-size: 120%;
+} */
+
+dd{
+  padding:1px 6x 6px 6px;
+  line-height: 1.8;
+}
+
+
+.kanji2.joyo {
+  background: transparent;
+  font-size: 160%;
+}
+
+.kanji2.jitai {
+  color: red;
+  font-size: 160%;
+}
+
+.kanji3.joyo {
+  background: transparent;
+  font-size: 240%;
+}
+
+.small{
+  font-size: 120%;
+}
+
+.small2{
+  font-size: 80%;
+}
+
+/* 以下、アコーディオンメニュー関係 */
+.accordion_title{
+position: relative;
+font-size: 140%;
+cursor: pointer;
+user-select: none;
+}
+
+.accordion_title:hover { 
+  background-color: #c1c7c7be;
+}
+
+.accordion_title::before,  .accordion_title::after{
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  width: 15px;
+  height: 2px;
+  background-color: #333;
+}
+
+.accordion_title::before{
+  top: 48%;
+  left: 15px;
+  transform: rotate(0deg);
+  transition-duration: .3s;
+}
+
+.accordion_title::after{
+  top: 48%;
+  left: 15px;
+  transform: rotate(-90deg);
+  transition-duration: .3s;
+}
+
+.accordion_title.is-active::before{
+  transform: rotate(45deg);
+}
+
+.accordion_title.is-active::after{
+  transform: rotate(-45deg);
+}
+
+.accordion_content{
+line-height: 0;
+height: 0;
+opacity: 0;
+overflow: hidden;
+transition-duration: .3s;
+/* transition: all .5s ease; */
+}
+
+.accordion_content.is-open{
+  line-height: normal;
+  height:auto;
+  opacity: 1;
+  line-height: normal; 
+  /* transition-duration: .8s; */
+  /* transition: all .5s ease; */
+  /* transition-duration: .3s; */
+}

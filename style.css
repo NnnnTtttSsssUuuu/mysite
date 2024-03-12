@@ -32,6 +32,23 @@ rt{
   font-size: 50%;
 }
 
+dt{
+  font-size 140%;
+  border-bottom: 2px solid black;
+}
+
+/* dt{
+  background: black;
+  color: white;
+  padding:1px 10px;
+  font-size: 120%;
+} */
+
+dd{
+  padding:1px 10px 10px 10px;
+  line-height: 1.8;
+}
+
 #input {
   width: 90%;
   height: 6em;
@@ -107,4 +124,8 @@ rt{
 
 .small{
   font-size: 120%;
+}
+
+.small2{
+  font-size: 80%;
 }
