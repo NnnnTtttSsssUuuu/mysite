@@ -105,7 +105,7 @@
       let klass = [], year;
 
       if (c === "\n") {
-        if(d !== "\n"){
+        if (d !== "\n") {
           outputText.insertAdjacentHTML('beforeend', '<br>');
         }
         continue;
@@ -134,12 +134,12 @@
           klass.push("joyo");
 
         if (checkString.indexOf(c) % 2 == 1)
-          klass.push("jitai");
+          klass.push("itaiji");
 
 
         // 「叱」の対応
         if (c === "叱")
-          klass.push("jitai");
+          klass.push("itaiji");
 
         // 「𠮟」の対応
         if (c === "\uD842" && d === "\uDF9F") {
@@ -152,14 +152,14 @@
         if (cjkhojoBushu(c)) {
           c = c + "[←部首] ";
           bushu = bushu + 1;
-          klass.push("joyo jitai");
+          klass.push("joyo itaiji");
         }
 
         //康熙部首のチェック
         if (kokiBushu(c)) {
           c = c + "[←部首] ";
           bushu = bushu + 1;
-          klass.push("joyo jitai");
+          klass.push("joyo itaiji");
         }
 
 
@@ -167,7 +167,7 @@
         if (checkString2.indexOf(c + d) % 3 === 1) {
           c = c + d;
           i++;
-          klass.push("jitai");
+          klass.push("itaiji");
         }
 
         // // 異体字セレクタの対応
@@ -210,9 +210,18 @@
     chuukiText.textContent = "";
   });
 
+  //スマホ操作時のナビゲーション
+  document.querySelector('#hamburger').addEventListener('click', () => {
+    const nav = document.querySelector('.sp-nav');
+    nav.classList.toggle('toggle');
+  });
+
+  document.querySelector('.close').addEventListener('click', () =>  {
+    const nav = document.querySelector('.sp-nav');
+    nav.classList.toggle('toggle');
+  });
 
   //以下、文字チェック関数の定義
-
   function isKanji(c) {
     return /^[\u2E80-\u2EF3\u2F00-\u2FD5\u3400-\u9FFF\uD800-\uDFFF\uF900-\uFAEF]+$/.test(c);
   }

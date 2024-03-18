@@ -12,3 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+
+  //スマホ操作時のナビゲーション
+  document.querySelector('#hamburger').addEventListener('click', () => {
+    const nav = document.querySelector('.sp-nav');
+    nav.classList.toggle('toggle');
+  });
+
+  document.querySelector('.close').addEventListener('click', () =>  {
+    const nav = document.querySelector('.sp-nav');
+    nav.classList.toggle('toggle');
+  });
+
