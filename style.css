@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "YuMincho", "游明朝", "Hiragino Mincho ProN", serif;
+  position: relative;
 }
 
 input,
@@ -17,8 +18,10 @@ p {
 }
 
 h1 {
-  margin: 0;
-  padding: 10px 1em 10px 1em;
+  margin: 0 0 0 0;
+  padding: 10px 1em 20px 1em;
+  line-height: 1em;
+  font-feature-settings: "palt" ;
 }
 
 h2 {
@@ -76,6 +79,7 @@ dd {
   height: 6em;
   font-size: 100%;
   line-height: 1.5;
+  /* margin:0 0 0 2em; */
 }
 
 #output {
@@ -94,12 +98,29 @@ dd {
   padding: 0 20px 0;
 }
 
+#zoomback{
+position: absolute;
+top: 0;
+width: 100vw;
+height: 100vh;
+background-color: rgba(0,0,0,0.8);
+display: flex;
+justify-content: center;
+align-items: center;
+display: none;
+}
+
+#zooming{
+  width: 80%;
+}
+
+
 .pc-nav {
   width: 100%;
-  height: 24px;
+  height: 29px;
   margin: -12px 0 0 0;
   padding: 0px 10px 0 10px;
-  font-size: 80%;
+  font-size: 110%;
   background: black;
   font-family: "YuMincho", "游明朝", "Hiragino Mincho ProN", serif;
 }
@@ -155,6 +176,10 @@ dd {
 
 .big240 {
   font-size: 240%;
+}
+
+.small60{
+  font-size: 60%
 }
 
 .gray {
@@ -237,6 +262,42 @@ dd {
   padding: 0 1em 0 1em;
 }
 
+.caption{
+  font-size:13px;
+  font-weight: normal;
+  margin: -20px 0 0 0;
+  vertical-align: super;
+}
+
+.red{
+  color: red;
+}
+
+.qq:hover{
+  display: inline-block;
+  transform: rotate(360deg);
+  transition: all 1s;
+}
+
+.qqq:hover{
+  display: inline-block;
+  transform: rotate(-360deg);
+  transition: all 0.5s;
+}
+
+#qualityCenter{
+position: absolute;
+top: 0;
+width: 90vw;
+height: 100vh;
+background-color: rgba(255,255,255,0.8);
+font-size: 16px;
+justify-content: center;
+text-align: center;
+align-items: center;
+display: none;
+margin: 0 1em;
+}
 
 @media screen and (max-width: 380px) {
 

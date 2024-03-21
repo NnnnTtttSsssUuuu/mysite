@@ -196,8 +196,7 @@
     if (bushu > 0) {
       chuukiText.insertAdjacentHTML('afterbegin', "【注意】テキストの中に漢字の部首の文字コードが" + bushu + "字混じっています。確認してください。<hr>");
     }
-
-
+    
   });
 
   // クリアボタン押下の処理
@@ -216,9 +215,38 @@
     nav.classList.toggle('toggle');
   });
 
-  document.querySelector('.close').addEventListener('click', () =>  {
+  document.querySelector('.close').addEventListener('click', () => {
     const nav = document.querySelector('.sp-nav');
     nav.classList.toggle('toggle');
+  });
+
+  //画像の拡大処理
+  document.addEventListener("DOMContentLoaded", () => {
+    const zoom = document.querySelectorAll('.zoom');
+    for (let i = 0; i < zoom.length; i++) {
+      let zoomeach = zoom[i];
+        zoomeach.addEventListener('click', () => {
+        const zoomeachsrc = zoomeach.getAttribute("src");
+        zooming.setAttribute('src', zoomeachsrc);
+        zoomback.style.display = "flex";
+      });
+    }
+  });
+
+  document.querySelector('#zoomback').addEventListener('click', () => {
+    const zoomback = document.getElementById("zoomback");
+    zoomback.style.display = "none";
+  });
+
+  //クレジット
+  document.querySelector('.qqq').addEventListener('click', () => {
+    const qualityCenter = document.getElementById("qualityCenter");
+    qualityCenter.style.display = "flex";
+  });
+
+  document.querySelector('#qualityCenter').addEventListener('click', () => {
+    const qualityCenter = document.getElementById("qualityCenter");
+    qualityCenter.style.display = "none";
   });
 
   //以下、文字チェック関数の定義
