@@ -1,11 +1,23 @@
 <!DOCTYPE html>
+
+<!-- 2023/12/28 sbstr、sliceをsubstringで統一
+2024/1/2 jQueryを使わないコードに変更完了
+2/2 異体字追加
+2/5 内部コード整理
+2/6 漢字配当学年をルビで表示する
+2/8 エラー修正
+2/25 CJK部首補助、康熙部首に対応。微少な修正
+3/12 用語辞典を加え、アコーディオンメニューを実装
+3/21 ページ全体のメニュー設置、同レスポンシブ化、漢字構成図を追加
+3/28 漢字構成図を改善、異体字セレクタ文字へのclass付与を修正、サロゲート文字への対応を修正、faviconアイコンを設定 -->
+
 <html lang="ja">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-
+  <link rel="icon" href="img/QCfavicon.ico">
   <title>漢字Quickチェッカー</title>
 
 </head>
@@ -33,32 +45,29 @@
       <span></span>
     </div>
 
-    <h1>漢字<span class="red qq">Q</span>uickチェッカー<br><span class="caption">produced by Shogakukan Shuppan <span
-          class="red qqq">Q</span>uality Center</span></h1>
-
+    <h1>漢字<span class="red qq">Q</span>uickチェッカー</h1>
+    <div class="subtitle">produced by Shogakukan Shuppan <span
+          class="red qqq">Q</span>uality Center</div>
 
   </header>
 
-  <p>学年別教育漢字、常用漢字表外漢字と、標準的でない字体をチェックします。
+  <p><br>学年別教育漢字、常用漢字表外漢字と、標準的でない字体をチェックします。
     <br>ご利用の前に<a href="about.html" target="_blank">使い方</a>をお読みください。
     <br>
     <br>凡例：
-    <ruby>学<rt>1</rt></ruby><ruby>年<rt>1</rt></ruby><ruby>別<rt>4</rt></ruby><ruby>教<rt>2</rt></ruby><ruby>育<rt>3</rt>
-    </ruby><ruby>漢<rt>3</rt></ruby><ruby>字<rt>1</rt></ruby>
-    <small>（数字は学年）</small>
-    <span>　常用漢字　</span>
-    <span class="kanji">表外漢字</span>
-    <!-- <img src="img/kanji2.png" alt="kanji no kouzou" height="100px"> -->
-    <span class="kanji joyo itaiji"><br>　　　標準的でない字体</span><span class="kanji joyo">[=標準的な字体]</span>
-    <span class="kanji joyo"><br>　　　JIS90フォントで字形が変わる字[△</span><span class="kanji joyo itaiji">標準的でない字体</span><span
+    <img class="zoom" src="img/kanji2mini.png" width="240">
+    <span class="caption">※クリックで拡大します</span>
+    <span class="kanji joyo itaiji"><br>　　標準的でない字体</span><span class="kanji joyo">[=標準的な字体]</span>
+    <span class="kanji joyo"><br>　　JIS90フォントで字形が変わる字[△</span><span class="kanji joyo itaiji">標準的でない字体</span><span
       class="kanji joyo">]</span>
+  </p>
 
-    <br><img class="zoom" src="img/kanji2.png" width="200">
-    <span class="caption">※クリックで拡大します</span>  </p>
   <div id="zoomback">
     <img id="zooming" src="">
   </div>
-  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>updated at 2024/3/21 <br>direction and text by Takashi Itakura<br>coding by Nobuo Tsukahara
+
+  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>last updated at 2024/3/31 <br>direction and text by Takashi
+    Itakura<br>coding by Nobuo Tsukahara
   </div>
 
   <p>

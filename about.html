@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="img/QCfavicon.ico">
 
   <title>使い方</title>
 
@@ -34,10 +35,11 @@
       <span></span>
     </div>
 
-    <h1>漢字Quickチェッカーの使い方</h1>
-
+    <h1>漢字<span class="red qq">Q</span>uickチェッカーの使い方</h1>
+    <div class="subtitle">produced by Shogakukan Shuppan <span
+      class="red qqq">Q</span>uality Center</div>
   </header>
-
+<br>
   <h2>●どう使う？</h2>
   <p>漢字Quickチェッカーは、あなたの編集・校正作業をお手伝いする<span class="kyocho">「気軽に使える漢字チェックツール」</span>です。<br>
     使い方は簡単！　調べたいテキストをボックスにコピー＆ペーストし、「check」ボタンを押すだけです。</P>
@@ -50,7 +52,7 @@
   <p>・教育漢字：<span class="big160"><ruby>右<rt>1</rt></ruby><ruby>羽<rt>2</rt></ruby><ruby>泳<rt>3</rt>
       </ruby><ruby>笑<rt>4</rt></ruby><ruby>快<rt>5</rt></ruby><ruby>映<rt>6</rt>
       </ruby></span>…小学校で学習する「教育漢字」です。数字は対象学年です。</p>
-  <p>・常用漢字：<span class="big160">亜哀握扱依𠮟</span>…黒い漢字は「常用漢字」2136字です。</p>
+  <p>・常用漢字：<span class="big160">亜哀握扱依𠮟</span>…黒い漢字は「常用漢字」2136字です。中学3年生までに学習します。</p>
   <p>・表外漢字： <span class="kanji big160">蛙埃軋帷閾尹</span>…常用漢字以外の漢字は黄色の網伏せになります。</p>
 
   <h5>「漢字の字体」</h5>
@@ -68,7 +70,7 @@
       class="big160">[△　]</span>内が「標準的でない字体」(異体字)です。
   </p>
   <p>・「部首」が表示されている：
-    <span class="big160 itaiji">⼟[←部首] ⼥[←部首] </span>…ごく稀なケースですが、漢字ではなく「部首」が表示される場合があります。<a
+    <span class="big160 red">⼟</span><span class="big160">[←部首]</span><span class="big160 red">⼥</span><span class="big160">[←部首] </span>…ごく稀なケースですが、漢字ではなく「部首」が表示される場合があります。<a
       href="about.html#bushuchuuki">詳しくはこちらを。</a>
   </p>
 
@@ -92,7 +94,7 @@
         <span class="kanji itaiji big160">𠮷</span><span class="big160">[=吉] </span>
         <span class="kanji itaiji big160">樣</span><span class="big160">[=様] </span>
         <span class="kanji itaiji big160">內</span><span class="big160">[=内]</span>
-        <br>含まれていない異体字の例：<span class="kanji itaiji big160">𣝣𥝱𧦅𧮾</span>  </div><br>
+        <br>含まれていない異体字の例：<span class="kanji big160">𣝣𥝱𧦅𧮾</span>  </div><br>
 
 
   <h2>●チェック結果をどう活かす？</h2>
@@ -113,9 +115,10 @@
     <br>
     <h5>異体字を意図的に使う場合</h5>
       <p>・異体字のなかでも「許容」とされている字体があり、判断のうえで使用することがあります。常用漢字のなかでは下記の9字です。</p>
-      <div class="kakomi">　　<span class="big160 ">餌󠄀遡󠄀遜󠄀謎󠄀餅󠄀</span>…これら5字は「許容字体」とされています。<br>　　<span
-          class="big160">填剥頬</span>…この3文字は2010年までは標準的に使われていました。現在では使用頻度は減ってきています。<br>　　<span
-          class="big160 ">叱</span>…標準字体「𠮟」との差が微細で、広く使われています。</div>
+      <div class="kakomi">　　<span class="big160 kanji itaiji">餌󠄀遡󠄀遜󠄀謎󠄀餅󠄀</span>…これら5字は「許容字体」とされています。<br>　　<span
+          class="big160 kanji itaiji">填剥頬</span>…この3文字は2010年までは標準的に使われていました。現在では使用頻度は減ってきています。<br>　　<span
+          class="big160 red">叱</span>…標準字体<span
+          class="big160">「𠮟」</span>との差が微細で、広く使われています。</div>
       <p>　・人名、地名などの固有名詞、専門用語…よく知られた例では、東京都の特別区は「<span class="big160 ">葛飾区</span>」ですが、奈良県の市は「<span
         class="big160">葛󠄀城市</span>」です。
       <br>　・著者の意図によって異体字を用いる場合もあります。「<span class="big160">龍</span>」が代表例です。
@@ -192,7 +195,7 @@
   <p>
     Unicodeには「⺡」や「⻌」など、漢字の「部首」を表示するための文字コードが収録されています。「CJK部首補助」または「康熙部首」として登録されている約300の部首です。これらの部首のなかには通常の漢字とまったく同じ字形のもの（「⼟」「⼥」など）があり、何らかのエラーで漢字の代わりに本文中に混じり込んでしまうと、目視では違いがわからないのに検索ができないなどのトラブルの原因になります。そのため漢字Quickチェッカーでは<span
       class="kanji joyo itaiji"> [←部首]</span>
-    として指摘しています。もし「部首」が意図しない混入だった場合は、正しい漢字へ修正してください。<br>なお、このような「部首の混入」は、PDF文書からテキストを取り出す際に生じる場合があります。<br>※下に「部首の文字コード」と正しい文字を並べてみました。目視で違いがわかるでしょうか？　コピーして漢字Quickチェッカーに貼り付けてみてください。
+    として指摘しています。もし「部首」が意図しない混入だった場合は、正しい漢字へ修正してください。<br>なお、このような「部首の混入」は、PDF文書からテキストを取り出す際に生じる場合があります。<br>※下に「部首の文字コード」と正しい文字を並べてみました。目視で違いがわかりますか？　コピーして漢字Quickチェッカーに貼り付けてみてください。
     <br>　<span class="big160 ">⼼心⼿手⽂文⽅方⽇日⽉月⽊木⽌止⽒氏⽔水</span>
   </p>
 
