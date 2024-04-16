@@ -9,7 +9,8 @@
 2/25 CJK部首補助、康熙部首に対応。微少な修正
 3/12 用語辞典を加え、アコーディオンメニューを実装
 3/21 ページ全体のメニュー設置、同レスポンシブ化、漢字構成図を追加
-3/28 漢字構成図を改善、異体字セレクタ文字へのclass付与を修正、サロゲート文字への対応を修正、faviconアイコンを設定 -->
+3/28 漢字構成図を改善、異体字セレクタ文字へのclass付与を修正、サロゲート文字への対応を修正、faviconアイコンを設定
+4/16 字体ごとの出現数リスト出力機能を追加 -->
 
 <html lang="ja">
 
@@ -51,7 +52,7 @@
 
   </header>
 
-  <p><br>学年別教育漢字、常用漢字表外漢字と、標準的でない字体をチェックします。
+  <p><br><span class = "red">「出現数リスト」の出力機能を追加しました。但し、「叱･𠮟」以外のサロゲートペアと、異体字セレクタには対応していません。</span><br>学年別教育漢字、常用漢字表外漢字と、標準的でない字体をチェックします。
     <br>ご利用の前に<a href="about.html" target="_blank">使い方</a>をお読みください。
     <br>
     <br>凡例：
@@ -66,20 +67,24 @@
     <img id="zooming" src="">
   </div>
 
-  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>last updated at 2024/3/31 <br>direction and text by Takashi
+  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>test version 2024/4/16 <br>direction and text by Takashi
     Itakura<br>coding by Nobuo Tsukahara
   </div>
 
   <p>
+
+
     <textarea id="input" placeholder="調べたいテキストを入力してください"></textarea>
 
     <br>
     <button id="checkButton">Check</button>
-    <button id="clearButton">Clear Text</button>
+    <button id="clearButton">データクリア</button>
+    <br><button id="listup">字体ごとの出現数リスト出力</button>
 
   </p>
 
   <p id="chuuki"></p>
+  <table id="letterList"></table>
   <p id="output"></p>
 
   <script src="main.js"></script>

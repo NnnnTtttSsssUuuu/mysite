@@ -12,6 +12,13 @@
   // フォントで表示される異体字リスト  標準字（単独コード）・異体字(異体字セレクタ）の順で並ぶ
   const checkString3 = '茨茨󠄀淫淫󠄀餌餌󠄀牙牙󠄀葛葛󠄀僅僅󠄀隙隙󠄀煎煎󠄀詮詮󠄀遡遡󠄀遜遜󠄀捗捗󠄀溺溺󠄀賭賭󠄀謎謎󠄀箸箸󠄀蔽蔽󠄀蔑蔑󠄀餅餅󠄀嘲嘲󠄀逢逢󠄀芦芦󠄀飴飴󠄀溢溢󠄀鰯鰯󠄀迂迂󠄀厩厩󠄀噂噂󠄀襖襖󠄀迦迦󠄀恢恢󠄀晦晦󠄀鞄鞄󠄀翰翰󠄀翫翫󠄀徽徽󠄀祇祇󠄀汲汲󠄀笈笈󠄀卿卿󠄀饗饗󠄀喰喰󠄀櫛櫛󠄁屑屑󠄀祁祁󠄀倦倦󠄀捲捲󠄀諺諺󠄀巷巷󠄀鵠鵠󠄀甑甑󠄀榊榊󠄀薩薩󠄀鯖鯖󠄀錆錆󠄀餐餐󠄀杓杓󠄀灼灼󠄀酋酋󠄀薯薯󠄀藷藷󠄀哨哨󠄀鞘鞘󠄀蝕蝕󠄀訊訊󠄀逗逗󠄀摺摺󠄀撰撰󠄀煽煽󠄀穿穿󠄀箭箭󠄀噌噌󠄀揃揃󠄀腿腿󠄀蛸蛸󠄀辿辿󠄀樽樽󠄀歎歎󠄀註註󠄀瀦瀦󠄀槌槌󠄀鎚鎚󠄀辻辻󠄀鄭鄭󠄀擢擢󠄀兎兎󠄀堵堵󠄀屠屠󠄀瀞瀞󠄀遁遁󠄀灘灘󠄀楢楢󠄀禰禰󠄀牌牌󠄀這這󠄀秤秤󠄀叛叛󠄀挽挽󠄀樋樋󠄀稗稗󠄀逼逼󠄀謬謬󠄀豹豹󠄀廟廟󠄀瀕瀕󠄀瞥瞥󠄀篇篇󠄀娩娩󠄀庖庖󠄀蓬蓬󠄀鱒鱒󠄀迄迄󠄀儲儲󠄀籾籾󠄀鑓鑓󠄀愈愈󠄀猷猷󠄀漣漣󠄁煉煉󠄁簾簾󠄀榔榔󠄀冤冤󠄀叟叟󠄀囀囀󠄀扁扁󠄀疼疼󠄀篝篝󠄀艘艘󠄀芒芒󠄀蠅蠅󠄀訝訝󠄀騙騙󠄀鴉鴉󠄀';
 
+
+  let countString = new Array(checkString.length);
+  countString.fill(0);
+
+  let countShikaruJ = 0;
+  let countShikaruI = 0;
+
   document.getElementById('input').focus();
 
   // チェックボタン押下の処理
@@ -30,14 +37,21 @@
       let d = inputText.substring(i + 1, i + 2);
       let e = inputText.substring(i + 2, i + 3);
 
-      // console.log(c.charCodeAt(0).toString(16));
+
 
       // 単一コード文字の対応
-      if (checkString.indexOf(c) % 2 === 1) {
-        let hyojun = checkString.charAt(checkString.indexOf(c) - 1);
-        c = c + "[=" + hyojun + "] ";
-        hyojunkaText = hyojunkaText + c;
-        continue;
+      //頻度数を取得
+      if (checkString.indexOf(c) > -1) {
+        let checkit = countString.at(checkString.indexOf(c));
+        countString.fill(checkit + 1, checkString.indexOf(c), checkString.indexOf(c) + 1);
+
+        if (checkString.indexOf(c) % 2 === 1) {
+          let hyojun = checkString.charAt(checkString.indexOf(c) - 1);
+          c = c + "[=" + hyojun + "] ";
+          hyojunkaText = hyojunkaText + c;
+
+          continue;
+        }
       }
 
       // 異体字セレクタ文字の対応
@@ -57,6 +71,11 @@
         i++;
         continue;
       }
+      
+      //「𠮟」の文字数カウント
+      if (c === "\uD842" && d === "\uDF9F") {
+        countShikaruJ = countShikaruJ + 1;
+      }
 
       // 同一コードで異体字の生じる可能性のある文字の対応（異体字セレクタ編）
       if (checkString3.indexOf(c) % 4 === 0) {
@@ -69,6 +88,7 @@
       // 「叱」字の対応
       if (c === "叱") {
         c = c + "[=" + "𠮟" + "] ";
+        countShikaruI = countShikaruI + 1;
       }
 
       //CJK部首補助のチェック
@@ -154,7 +174,7 @@
         }
 
         // サロゲートペア文字の対応
-        if (isSurrogatePair(c)){
+        if (isSurrogatePair(c)) {
           if (checkString2.indexOf(c + d) % 3 === 1) {
             klass.push("itaiji");
           }
@@ -174,6 +194,7 @@
       outputText.appendChild(spanElement);
 
     };
+
     // ループ２終わり 
 
     //文字列の最後に教育漢字があると、ルビ付きでコピペできない現象を回避
@@ -188,12 +209,18 @@
 
   // クリアボタン押下の処理
   document.querySelector('#clearButton').addEventListener('click', () => {
-    const outputText = document.querySelector('#output');
-    const chuukiText = document.querySelector('#chuuki');
-    document.getElementById('input').value = '';
-    document.getElementById('input').focus();
-    outputText.textContent = "";
-    chuukiText.textContent = "";
+    // const outputText = document.querySelector('#output');
+    // const chuukiText = document.querySelector('#chuuki');
+    // const listText = document.querySelector('#letterList');
+    // document.getElementById('input').value = '';
+    // document.getElementById('input').focus();
+    // outputText.textContent = "";
+    // chuukiText.textContent = "";
+    // listText.textContent = "";
+    // countString.fill(0);
+
+    location.reload();
+
   });
 
   //スマホ操作時のナビゲーション
@@ -288,5 +315,119 @@
   }
 
   // });
+
+
+  //表を表示する
+  document.querySelector('#listup').addEventListener('click', () => {
+    const allList = document.getElementById("letterList");
+    allList.textContent = "";
+
+    const allTable = document.createElement("table");
+    const alltbody = document.createElement("tbody");
+
+    const alltr = document.createElement("tr"); //tr=table row　表の行
+    const alltr2 = document.createElement("tr"); 
+    // const alltd1 = document.createElement("td"); //td=table data　表の内容
+    const alltd2 = document.createElement("td");
+    const alltd3 = document.createElement("td");
+    const alltd4 = document.createElement("td");
+    const alltd5 = document.createElement("td");
+    const alltd6 = document.createElement("td");
+    const alltd7 = document.createElement("td");
+    const alltd8 = document.createElement("td");
+    const alltd9 = document.createElement("td");
+
+    // alltd1.textContent = "No.";
+    alltd2.textContent = "標準的な字体";
+    alltd3.textContent = "出現数";
+    alltd4.textContent = "標準的でない字体";
+    alltd5.textContent = "出現数";
+
+    // alltr.appendChild(alltd1);
+    alltr.appendChild(alltd2);
+    alltr.appendChild(alltd3);
+    alltr.appendChild(alltd4);
+    alltr.appendChild(alltd5);
+
+    alltbody.appendChild(alltr);
+    allTable.appendChild(alltbody);
+    allList.appendChild(allTable);
+
+     console.log("allList",allList);
+
+    //𠮟と叱の対応
+    if (countShikaruJ + countShikaruI > 0) {
+
+      alltd6.textContent = "𠮟";
+      alltd7.textContent = countShikaruJ;
+      alltd8.textContent = "叱";
+      alltd9.textContent = countShikaruI;
+
+      alltr2.appendChild(alltd6);
+      alltr2.appendChild(alltd7);
+      alltr2.appendChild(alltd8);
+      alltr2.appendChild(alltd9);
+
+      alltbody.appendChild(alltr2);
+      allTable.appendChild(alltbody);
+      allList.appendChild(allTable);
+    }
+
+
+    //2行目以降を入れる
+    for (let i = 0; i < checkString.length; i = i + 2) {
+
+      if (countString.at(i) + countString.at(i + 1) > 0) {
+
+
+        const row = document.createElement("tr");
+
+        //     //第1列
+        // const cell = document.createElement("td");
+        const cellText1 = document.createElement("td");
+        const cellText2 = document.createElement("td");
+        const cellText3 = document.createElement("td");
+        const cellText4 = document.createElement("td");
+
+        // cell.textContent = i / 2 + 1;
+        // row.appendChild(cell);
+
+        //     //第2列
+        cellText1.innerHTML = checkString.at(i);
+        row.appendChild(cellText1);
+
+        //     //第3列
+        cellText2.innerHTML = countString.at(i);
+        row.appendChild(cellText2);
+
+        //     //第4列
+        cellText3.innerHTML = checkString.at(i + 1);
+        row.appendChild(cellText3);
+
+        //     //第5列
+        cellText4.innerHTML = countString.at(i + 1);
+
+
+        row.appendChild(cellText4);
+        alltbody.appendChild(row);
+        allTable.appendChild(alltbody);
+        allList.appendChild(allTable);
+
+        
+      
+      }
+
+      // console.log("row", i, row);
+
+
+
+    }
+
+    allList.insertAdjacentHTML('afterend', "<hr>");
+
+  });
+
+
+
 
 }
