@@ -14,15 +14,29 @@
 
 
   let countString = new Array(checkString.length);
-  countString.fill(0);
-
-  let countShikaruJ = 0;
-  let countShikaruI = 0;
+  let countShikaruJ;
+  let countShikaruI;
 
   document.getElementById('input').focus();
 
+
+  //リアルタイムで変換する
+  let tid;
+  // delay = 200;
+  delay = 500;
+
+  document.querySelector('#input').addEventListener('keyup', function () {
+    tid && clearTimeout(tid);
+    tid = setTimeout(checkCharacter, delay);
+
+  });
+
+
+
   // チェックボタン押下の処理
-  document.querySelector('#checkButton').addEventListener('click', () => {
+  // document.querySelector('#checkButton').addEventListener('click', () => {
+
+  function checkCharacter() {
     const inputText = document.querySelector('#input').value;
     const outputText = document.querySelector('#output');
     const chuukiText = document.querySelector('#chuuki');
@@ -30,6 +44,12 @@
     chuukiText.textContent = "";
     let hyojunkaText = "";
     let bushu = 0;
+
+    countString.fill(0);
+    countShikaruJ = 0;
+    countShikaruI = 0;
+
+    // console.log("checkCharacter関数");
 
     // ★以下、標準的な字体を表示するループ１
     for (let i = 0; i < inputText.length; i++) {
@@ -39,8 +59,7 @@
 
 
 
-      // 単一コード文字の対応
-      //頻度数を取得
+      // 単一コード文字の対応 頻度数を取得と、標準字体の表示
       if (checkString.indexOf(c) > -1) {
         let checkit = countString.at(checkString.indexOf(c));
         countString.fill(checkit + 1, checkString.indexOf(c), checkString.indexOf(c) + 1);
@@ -59,7 +78,6 @@
         c = c + d + e + "[=" + c + "] ";
         i = i + 2;
         hyojunkaText = hyojunkaText + c;
-        // console.log("異体字セレクタ認識", c)
         continue;
       }
 
@@ -71,10 +89,16 @@
         i++;
         continue;
       }
-      
-      //「𠮟」の文字数カウント
+
+      //「𠮟」字の対応（文字数カウント）
       if (c === "\uD842" && d === "\uDF9F") {
         countShikaruJ = countShikaruJ + 1;
+      }
+
+      // 「叱」字の対応（標準字表示と文字数カウント）
+      if (c === "叱") {
+        c = c + "[=" + "𠮟" + "] ";
+        countShikaruI = countShikaruI + 1;
       }
 
       // 同一コードで異体字の生じる可能性のある文字の対応（異体字セレクタ編）
@@ -83,12 +107,6 @@
         c = c + "[△" + hyojun + "] ";
         hyojunkaText = hyojunkaText + c;
         continue;
-      }
-
-      // 「叱」字の対応
-      if (c === "叱") {
-        c = c + "[=" + "𠮟" + "] ";
-        countShikaruI = countShikaruI + 1;
       }
 
       //CJK部首補助のチェック
@@ -100,8 +118,6 @@
       if (kokiBushu(c)) {
         c = c + "[←部首] ";
       }
-
-
 
       hyojunkaText = hyojunkaText + c;
 
@@ -205,7 +221,10 @@
       chuukiText.insertAdjacentHTML('afterbegin', "【注意】テキストの中に漢字の部首の文字コードが" + bushu + "字混じっています。確認してください。<hr>");
     }
 
-  });
+  } //funchtion checkCharacter() 終わり
+
+
+  // });
 
   // クリアボタン押下の処理
   document.querySelector('#clearButton').addEventListener('click', () => {
@@ -314,20 +333,13 @@
     else if (/^[胃異遺域宇映延沿恩我灰拡革閣割株干巻看簡危机揮貴疑吸供胸郷勤筋系敬警劇激穴券絹権憲源厳己呼誤后孝皇紅降鋼刻穀骨困砂座済裁策冊蚕至私姿視詞誌磁射捨尺若樹収宗就衆従縦縮熟純処署諸除承将傷障蒸針仁垂推寸盛聖誠舌宣専泉洗染銭善奏窓創装層操蔵臓存尊退宅担探誕段暖値宙忠著庁頂腸潮賃痛敵展討党糖届難乳認納脳派拝背肺俳班晩否批秘俵腹奮並陛閉片補暮宝訪亡忘棒枚幕密盟模訳郵優預幼欲翌乱卵覧裏律臨朗論]+$/.test(c)) { return 6; }
   }
 
-  // });
-
-
   //表を表示する
   document.querySelector('#listup').addEventListener('click', () => {
     const allList = document.getElementById("letterList");
-    allList.textContent = "";
-
     const allTable = document.createElement("table");
     const alltbody = document.createElement("tbody");
-
-    const alltr = document.createElement("tr"); //tr=table row　表の行
-    const alltr2 = document.createElement("tr"); 
-    // const alltd1 = document.createElement("td"); //td=table data　表の内容
+    const alltr = document.createElement("tr"); 
+    const alltr2 = document.createElement("tr");
     const alltd2 = document.createElement("td");
     const alltd3 = document.createElement("td");
     const alltd4 = document.createElement("td");
@@ -337,13 +349,13 @@
     const alltd8 = document.createElement("td");
     const alltd9 = document.createElement("td");
 
-    // alltd1.textContent = "No.";
+    allList.textContent = "";
+    allTable.textContent = "";
     alltd2.textContent = "標準的な字体";
     alltd3.textContent = "出現数";
     alltd4.textContent = "標準的でない字体";
     alltd5.textContent = "出現数";
 
-    // alltr.appendChild(alltd1);
     alltr.appendChild(alltd2);
     alltr.appendChild(alltd3);
     alltr.appendChild(alltd4);
@@ -353,11 +365,8 @@
     allTable.appendChild(alltbody);
     allList.appendChild(allTable);
 
-     console.log("allList",allList);
-
     //𠮟と叱の対応
     if (countShikaruJ + countShikaruI > 0) {
-
       alltd6.textContent = "𠮟";
       alltd7.textContent = countShikaruJ;
       alltd8.textContent = "叱";
@@ -373,61 +382,39 @@
       allList.appendChild(allTable);
     }
 
-
     //2行目以降を入れる
     for (let i = 0; i < checkString.length; i = i + 2) {
-
       if (countString.at(i) + countString.at(i + 1) > 0) {
-
-
         const row = document.createElement("tr");
-
-        //     //第1列
-        // const cell = document.createElement("td");
         const cellText1 = document.createElement("td");
         const cellText2 = document.createElement("td");
         const cellText3 = document.createElement("td");
         const cellText4 = document.createElement("td");
 
-        // cell.textContent = i / 2 + 1;
-        // row.appendChild(cell);
-
-        //     //第2列
+        //第1列
         cellText1.innerHTML = checkString.at(i);
         row.appendChild(cellText1);
 
-        //     //第3列
+        //第2列
         cellText2.innerHTML = countString.at(i);
         row.appendChild(cellText2);
 
-        //     //第4列
+        //第3列
         cellText3.innerHTML = checkString.at(i + 1);
         row.appendChild(cellText3);
 
-        //     //第5列
+        //第4列
         cellText4.innerHTML = countString.at(i + 1);
-
 
         row.appendChild(cellText4);
         alltbody.appendChild(row);
         allTable.appendChild(alltbody);
         allList.appendChild(allTable);
-
-        
-      
       }
-
-      // console.log("row", i, row);
-
-
-
     }
-
     allList.insertAdjacentHTML('afterend', "<hr>");
 
+    console.log("最終",allList);
   });
-
-
-
 
 }
