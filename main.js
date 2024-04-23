@@ -8,34 +8,32 @@
   // 異体字リスト 標準字（単独コード）・異体字（サロゲートペア）の順で並ぶ
   const checkString2 = '吉𠮷稽𥡴隙𨻶真眞巽巽兎兔卉卉鋏𨦇饒𩜙';
 
-
   // フォントで表示される異体字リスト  標準字（単独コード）・異体字(異体字セレクタ）の順で並ぶ
   const checkString3 = '茨茨󠄀淫淫󠄀餌餌󠄀牙牙󠄀葛葛󠄀僅僅󠄀隙隙󠄀煎煎󠄀詮詮󠄀遡遡󠄀遜遜󠄀捗捗󠄀溺溺󠄀賭賭󠄀謎謎󠄀箸箸󠄀蔽蔽󠄀蔑蔑󠄀餅餅󠄀嘲嘲󠄀逢逢󠄀芦芦󠄀飴飴󠄀溢溢󠄀鰯鰯󠄀迂迂󠄀厩厩󠄀噂噂󠄀襖襖󠄀迦迦󠄀恢恢󠄀晦晦󠄀鞄鞄󠄀翰翰󠄀翫翫󠄀徽徽󠄀祇祇󠄀汲汲󠄀笈笈󠄀卿卿󠄀饗饗󠄀喰喰󠄀櫛櫛󠄁屑屑󠄀祁祁󠄀倦倦󠄀捲捲󠄀諺諺󠄀巷巷󠄀鵠鵠󠄀甑甑󠄀榊榊󠄀薩薩󠄀鯖鯖󠄀錆錆󠄀餐餐󠄀杓杓󠄀灼灼󠄀酋酋󠄀薯薯󠄀藷藷󠄀哨哨󠄀鞘鞘󠄀蝕蝕󠄀訊訊󠄀逗逗󠄀摺摺󠄀撰撰󠄀煽煽󠄀穿穿󠄀箭箭󠄀噌噌󠄀揃揃󠄀腿腿󠄀蛸蛸󠄀辿辿󠄀樽樽󠄀歎歎󠄀註註󠄀瀦瀦󠄀槌槌󠄀鎚鎚󠄀辻辻󠄀鄭鄭󠄀擢擢󠄀兎兎󠄀堵堵󠄀屠屠󠄀瀞瀞󠄀遁遁󠄀灘灘󠄀楢楢󠄀禰禰󠄀牌牌󠄀這這󠄀秤秤󠄀叛叛󠄀挽挽󠄀樋樋󠄀稗稗󠄀逼逼󠄀謬謬󠄀豹豹󠄀廟廟󠄀瀕瀕󠄀瞥瞥󠄀篇篇󠄀娩娩󠄀庖庖󠄀蓬蓬󠄀鱒鱒󠄀迄迄󠄀儲儲󠄀籾籾󠄀鑓鑓󠄀愈愈󠄀猷猷󠄀漣漣󠄁煉煉󠄁簾簾󠄀榔榔󠄀冤冤󠄀叟叟󠄀囀囀󠄀扁扁󠄀疼疼󠄀篝篝󠄀艘艘󠄀芒芒󠄀蠅蠅󠄀訝訝󠄀騙騙󠄀鴉鴉󠄀';
 
 
   let countString = new Array(checkString.length);
+  let countString2 = new Array(checkString2.length);
+  let countString3 = new Array(checkString3.length);
+  let newItaiji = [];
+  let newItaijiMoto = [];
+  let countItaiji = [];
+  let countItaijiMoto = [];
   let countShikaruJ;
   let countShikaruI;
+  let newItaijiAri = 0;
 
   document.getElementById('input').focus();
 
-
   //リアルタイムで変換する
   let tid;
-  // delay = 200;
   delay = 500;
-
   document.querySelector('#input').addEventListener('keyup', function () {
     tid && clearTimeout(tid);
     tid = setTimeout(checkCharacter, delay);
-
   });
 
-
-
   // チェックボタン押下の処理
-  // document.querySelector('#checkButton').addEventListener('click', () => {
-
   function checkCharacter() {
     const inputText = document.querySelector('#input').value;
     const outputText = document.querySelector('#output');
@@ -46,10 +44,15 @@
     let bushu = 0;
 
     countString.fill(0);
+    countString2.fill(0);
+    countString3.fill(0);
+    newItaiji = [];
+    newItaijiMoto = [];
+    countItaiji = [];
+    countItaijiMoto = [];
     countShikaruJ = 0;
     countShikaruI = 0;
 
-    // console.log("checkCharacter関数");
 
     // ★以下、標準的な字体を表示するループ１
     for (let i = 0; i < inputText.length; i++) {
@@ -57,24 +60,37 @@
       let d = inputText.substring(i + 1, i + 2);
       let e = inputText.substring(i + 2, i + 3);
 
-
-
-      // 単一コード文字の対応 頻度数を取得と、標準字体の表示
-      if (checkString.indexOf(c) > -1) {
-        let checkit = countString.at(checkString.indexOf(c));
+      // 単一コード文字の対応 頻度数を取得、標準字体を表示
+      if (checkString.indexOf(c) > -1 && !(isItaijiSelector(d))) {
+        let checkit = countString[checkString.indexOf(c)];
         countString.fill(checkit + 1, checkString.indexOf(c), checkString.indexOf(c) + 1);
 
         if (checkString.indexOf(c) % 2 === 1) {
-          let hyojun = checkString.charAt(checkString.indexOf(c) - 1);
+          let hyojun = checkString[checkString.indexOf(c) - 1];
           c = c + "[=" + hyojun + "] ";
           hyojunkaText = hyojunkaText + c;
-
           continue;
         }
       }
 
       // 異体字セレクタ文字の対応
       if (isItaijiSelector(d)) {
+        if (checkString3.indexOf(c + d + e) % 4 === 1) {
+          let checkit = countString3[checkString3.indexOf(c + d + e)];
+          countString3.fill(checkit + 1, checkString3.indexOf(c + d + e), checkString3.indexOf(c + d + e) + 1);
+        } else {
+          newItaijiAri = 1;
+          if (newItaiji.indexOf(c + d + e) > -1) {
+            let checkit2 = countItaiji[newItaiji.indexOf(c + d + e)];
+            countItaiji.fill(checkit2 + 1, newItaiji.indexOf(c + d + e), newItaiji.indexOf(c + d + e) + 1);
+          } else {
+            newItaiji.push(c + d + e);
+            newItaijiMoto.push(c);
+            countItaiji.push(1);
+            countItaijiMoto.push(0);
+          }
+        }
+
         c = c + d + e + "[=" + c + "] ";
         i = i + 2;
         hyojunkaText = hyojunkaText + c;
@@ -82,8 +98,16 @@
       }
 
       // サロゲートペア文字の対応
+      if (checkString2.indexOf(c) % 3 === 0) {
+        let checkit = countString2[checkString2.indexOf(c)];
+        countString2.fill(checkit + 1, checkString2.indexOf(c), checkString2.indexOf(c) + 1);
+      }
+
       if (checkString2.indexOf(c + d) % 3 === 1) {
-        let hyojun = checkString2.charAt(checkString2.indexOf(c + d) - 1);
+        let checkit = countString2[checkString2.indexOf(c + d)];
+        countString2.fill(checkit + 1, checkString2.indexOf(c + d), checkString2.indexOf(c + d) + 1);
+
+        let hyojun = checkString2[checkString2.indexOf(c + d) - 1];
         c = c + d + "[=" + hyojun + "] ";
         hyojunkaText = hyojunkaText + c;
         i++;
@@ -103,7 +127,11 @@
 
       // 同一コードで異体字の生じる可能性のある文字の対応（異体字セレクタ編）
       if (checkString3.indexOf(c) % 4 === 0) {
-        let hyojun = checkString3.charAt(checkString3.indexOf(c) + 1) + checkString3.charAt(checkString3.indexOf(c) + 2) + checkString3.charAt(checkString3.indexOf(c) + 3);
+
+        let checkit = countString3[checkString3.indexOf(c)];
+        countString3.fill(checkit + 1, checkString3.indexOf(c), checkString3.indexOf(c) + 1);
+
+        let hyojun = checkString3[checkString3.indexOf(c) + 1] + checkString3[checkString3.indexOf(c) + 2] + checkString3[checkString3.indexOf(c) + 3];
         c = c + "[△" + hyojun + "] ";
         hyojunkaText = hyojunkaText + c;
         continue;
@@ -143,14 +171,12 @@
       if (isKanji(c)) {
         klass.push("kanji");
 
-
-        // // 異体字セレクタの対応
+        // 異体字セレクタの対応
         if (isItaijiSelector(d)) {
           c = c + d + e;
           i = i + 2;
           klass.push("itaiji");
         }
-
 
         if (year = getYearOfKyoikuKanji(c)) {
           let kyoiku = "<ruby>" + c + "<rt>" + year + "</rt></ruby>"
@@ -164,7 +190,6 @@
 
         if (checkString.indexOf(c) % 2 == 1)
           klass.push("itaiji");
-
 
         // 「叱」の対応
         if (c === "叱")
@@ -198,7 +223,6 @@
           i++;
         }
 
-
       }
 
       let spanElement = document.createElement("span");
@@ -221,25 +245,25 @@
       chuukiText.insertAdjacentHTML('afterbegin', "【注意】テキストの中に漢字の部首の文字コードが" + bushu + "字混じっています。確認してください。<hr>");
     }
 
+    //リスト外の異体字セレクタがあった際、基盤文字をカウントする
+    if (newItaijiAri > 0) {
+      for (let i = 0; i < inputText.length; i++) {
+        let c = inputText.substring(i, i + 1);
+        let d = inputText.substring(i + 1, i + 2);
+        if (newItaijiMoto.indexOf(c) > -1 && !(isItaijiSelector(d))) {
+          let checkit = countItaijiMoto[newItaijiMoto.indexOf(c)];
+          countItaijiMoto.fill(checkit + 1, newItaijiMoto.indexOf(c), newItaijiMoto.indexOf(c) + 1);
+        }
+      }
+    }
+
   } //funchtion checkCharacter() 終わり
 
 
-  // });
 
   // クリアボタン押下の処理
   document.querySelector('#clearButton').addEventListener('click', () => {
-    // const outputText = document.querySelector('#output');
-    // const chuukiText = document.querySelector('#chuuki');
-    // const listText = document.querySelector('#letterList');
-    // document.getElementById('input').value = '';
-    // document.getElementById('input').focus();
-    // outputText.textContent = "";
-    // chuukiText.textContent = "";
-    // listText.textContent = "";
-    // countString.fill(0);
-
     location.reload();
-
   });
 
   //スマホ操作時のナビゲーション
@@ -259,19 +283,6 @@
     zoomback.style.display = "flex";
   });
 
-  //汎用性のある画像の拡大処理
-  // document.addEventListener("DOMContentLoaded", () => {
-  //   const zoom = document.querySelectorAll('.zoom');
-  //   for (let i = 0; i < zoom.length; i++) {
-  //     let zoomeach = zoom[i];
-  //       zoomeach.addEventListener('click', () => {
-  //       const zoomeachsrc = zoomeach.getAttribute("src");
-  //       zooming.setAttribute('src', zoomeachsrc);
-  //       zoomback.style.display = "flex";
-  //     });
-  //   }
-  // });
-
   document.querySelector('#zoomback').addEventListener('click', () => {
     const zoomback = document.getElementById("zoomback");
     zoomback.style.display = "none";
@@ -289,7 +300,6 @@
   });
 
   //以下、文字チェック関数の定義
-  //漢字をチェック
   function isKanji(c) {
     return /^[\u2E80-\u2EF3\u2F00-\u2FD5\u3400-\u9FFF\uD800-\uDFFF\uF900-\uFAEF]+$/.test(c);
   }
@@ -338,53 +348,53 @@
     const allList = document.getElementById("letterList");
     const allTable = document.createElement("table");
     const alltbody = document.createElement("tbody");
-    const alltr = document.createElement("tr"); 
+    const alltr1 = document.createElement("tr");
     const alltr2 = document.createElement("tr");
+    const allth1 = document.createElement("th");
+    const allth2 = document.createElement("th");
+    const allth3 = document.createElement("th");
+    const allth4 = document.createElement("th");
+    const alltd1 = document.createElement("td");
     const alltd2 = document.createElement("td");
     const alltd3 = document.createElement("td");
     const alltd4 = document.createElement("td");
-    const alltd5 = document.createElement("td");
-    const alltd6 = document.createElement("td");
-    const alltd7 = document.createElement("td");
-    const alltd8 = document.createElement("td");
-    const alltd9 = document.createElement("td");
 
     allList.textContent = "";
     allTable.textContent = "";
-    alltd2.textContent = "標準的な字体";
-    alltd3.textContent = "出現数";
-    alltd4.textContent = "標準的でない字体";
-    alltd5.textContent = "出現数";
+    allth1.textContent = "標準的な字体";
+    allth2.textContent = "出現数";
+    allth3.textContent = "標準的でない字体";
+    allth4.textContent = "出現数";
 
-    alltr.appendChild(alltd2);
-    alltr.appendChild(alltd3);
-    alltr.appendChild(alltd4);
-    alltr.appendChild(alltd5);
+    alltr1.appendChild(allth1);
+    alltr1.appendChild(allth2);
+    alltr1.appendChild(allth3);
+    alltr1.appendChild(allth4);
 
-    alltbody.appendChild(alltr);
+    alltbody.appendChild(alltr1);
     allTable.appendChild(alltbody);
     allList.appendChild(allTable);
 
     //𠮟と叱の対応
     if (countShikaruJ + countShikaruI > 0) {
-      alltd6.textContent = "𠮟";
-      alltd7.textContent = countShikaruJ;
-      alltd8.textContent = "叱";
-      alltd9.textContent = countShikaruI;
+      alltd1.textContent = "𠮟";
+      alltd2.textContent = countShikaruJ;
+      alltd3.textContent = "叱";
+      alltd4.textContent = countShikaruI;
 
-      alltr2.appendChild(alltd6);
-      alltr2.appendChild(alltd7);
-      alltr2.appendChild(alltd8);
-      alltr2.appendChild(alltd9);
+      alltr2.appendChild(alltd1);
+      alltr2.appendChild(alltd2);
+      alltr2.appendChild(alltd3);
+      alltr2.appendChild(alltd4);
 
       alltbody.appendChild(alltr2);
       allTable.appendChild(alltbody);
-      allList.appendChild(allTable);
     }
 
     //2行目以降を入れる
     for (let i = 0; i < checkString.length; i = i + 2) {
-      if (countString.at(i) + countString.at(i + 1) > 0) {
+      // if (countString.at(i) + countString.at(i + 1) > 0) {
+      if (countString.at(i + 1) > 0) {
         const row = document.createElement("tr");
         const cellText1 = document.createElement("td");
         const cellText2 = document.createElement("td");
@@ -409,12 +419,133 @@
         row.appendChild(cellText4);
         alltbody.appendChild(row);
         allTable.appendChild(alltbody);
-        allList.appendChild(allTable);
       }
     }
-    allList.insertAdjacentHTML('afterend', "<hr>");
 
-    console.log("最終",allList);
+    //サロゲートペア対応
+    for (let i = 0; i < checkString2.length; i = i + 3) {
+      // if (countString2.at(i) + countString2.at(i + 1) > 0) {
+      if (countString2.at(i + 1) > 0) {
+        const row = document.createElement("tr");
+        const cellText1 = document.createElement("td");
+        const cellText2 = document.createElement("td");
+        const cellText3 = document.createElement("td");
+        const cellText4 = document.createElement("td");
+
+        //第1列
+        cellText1.innerHTML = checkString2.at(i);
+        row.appendChild(cellText1);
+
+        //第2列
+        cellText2.innerHTML = countString2.at(i);
+        row.appendChild(cellText2);
+
+        //第3列
+        let salomoji = checkString2.substring(i + 1, i + 3);
+        cellText3.innerHTML = salomoji;
+        row.appendChild(cellText3);
+
+        //第4列
+        cellText4.innerHTML = countString2.at(i + 1);
+
+        row.appendChild(cellText4);
+        alltbody.appendChild(row);
+        allTable.appendChild(alltbody);
+      }
+    }
+
+    //リスト内の異体字セレクタ対応
+    for (let i = 0; i < checkString3.length; i = i + 4) {
+      // if (countString3.at(i) + countString3.at(i + 1) > 0) {
+      if (countString3.at(i + 1) > 0) {
+        const row = document.createElement("tr");
+        const cellText1 = document.createElement("td");
+        const cellText2 = document.createElement("td");
+        const cellText3 = document.createElement("td");
+        const cellText4 = document.createElement("td");
+
+        //第1列
+        cellText1.innerHTML = checkString3.at(i);
+        row.appendChild(cellText1);
+
+        //第2列
+        cellText2.innerHTML = countString3.at(i);
+        row.appendChild(cellText2);
+
+        //第3列
+        let selectmoji = checkString3.substring(i + 1, i + 4);
+        cellText3.innerHTML = selectmoji;
+        row.appendChild(cellText3);
+
+        //第4列
+        cellText4.innerHTML = countString3.at(i + 1);
+
+        row.appendChild(cellText4);
+        alltbody.appendChild(row);
+        allTable.appendChild(alltbody);
+      }
+    }
+
+    //リスト外の異体字セレクタ対応
+    for (let i = 0; i < newItaiji.length; i++) {
+      const row = document.createElement("tr");
+      const cellText1 = document.createElement("td");
+      const cellText2 = document.createElement("td");
+      const cellText3 = document.createElement("td");
+      const cellText4 = document.createElement("td");
+
+      //第1列
+      cellText1.innerHTML = newItaijiMoto.at(i);
+      row.appendChild(cellText1);
+
+      //第2列
+      cellText2.innerHTML = countItaijiMoto.at(i);
+      row.appendChild(cellText2);
+
+      //第3列
+      cellText3.innerHTML = newItaiji.at(i);
+      row.appendChild(cellText3);
+
+      //第4列
+      cellText4.innerHTML = countItaiji.at(i);
+
+      row.appendChild(cellText4);
+      alltbody.appendChild(row);
+      allTable.appendChild(alltbody);
+    }
+
+    //並べ替え 第1列でソートする
+    firstsortRows();
+    function firstsortRows() {
+      const table = document.querySelector("table");
+      const records = [];
+      for (let i = 1; i < table.rows.length; i++) {
+        const record = {};
+        record.row = table.rows[i];
+        record.key = table.rows[i].cells[0].textContent;
+        records.push(record);
+      }
+
+      records.sort(compareKeys);
+
+      for (let i = 0; i < records.length; i++) {
+        table.appendChild(records[i].row);
+      }
+    }
+
+    function compareKeys(a, b) {
+      if (a.key < b.key) return -1;
+      if (a.key > b.key) return 1;
+      return 0;
+    }
+
+    // display: noneを削除
+    let elementEndOfTable = document.getElementById('endOfTable');
+    let elementChukiTable = document.getElementById('chukiTable');
+    elementEndOfTable.style.display = 'block';
+    elementChukiTable.style.display = 'block';
+
+    // console.log("最終", allList);
   });
 
 }
