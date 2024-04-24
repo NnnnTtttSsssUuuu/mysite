@@ -10,8 +10,8 @@
 3/12 用語辞典を加え、アコーディオンメニューを実装
 3/21 ページ全体のメニュー設置、同レスポンシブ化、漢字構成図を追加
 3/28 漢字構成図を改善、異体字セレクタ文字へのclass付与を修正、サロゲート文字への対応を修正、faviconアイコンを設定
-4/16 字体ごとの出現数リスト表示機能を追加（但し16ビットのコードユニットに限る）、漢字チェックをリアルタイムで実行するように改修
-4/22 出現数リスト表示を、サロゲートペア・異体字セレクタへも対応-->
+4/16 字体ごとの出現数リスト表示機能を追加（但しBMP面の文字に限る）、漢字チェックをリアルタイムで実行するように改修
+4/23 出現数リスト表示を、サロゲートペア・異体字セレクタにも対応-->
 
 <html lang="ja">
 
@@ -49,13 +49,12 @@
 
     <h1>漢字<span class="red qq">Q</span>uickチェッカー</h1>
     <div class="subtitle">produced by Shogakukan Shuppan <span
-          class="red qqq">Q</span>uality Center<br>Version 2.0</div>
+          class="red qqq">Q</span>uality Center</div>
 
   </header>
 
-  <p><br><br>学年別教育漢字、常用漢字表外漢字と、標準的でない字体をチェックします。
+  <p><br>学年別教育漢字、常用漢字表外漢字と、標準的でない字体をチェックします。
     <br>ご利用の前に<a href="about.html" target="_blank">使い方</a>をお読みください。
-    <br><span class = "red small80">＜Version 2.0での変更点＞①テキストを入力すると即座にチェックが始まるしくみに変更しました。②「字体ごとの出現数リスト」を表示する機能を追加しました。</span>
     <br>
     <br>凡例：
     <img class="zoom" src="img/kanji2mini.png" width="240">
@@ -69,7 +68,7 @@
     <img id="zooming" src="">
   </div>
 
-  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>test version 2024/4/23 <br>direction and text by Takashi
+  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>last updated at 2024/4/23 <br>direction and text by Takashi
     Itakura<br>coding by Nobuo Tsukahara
   </div>
 
