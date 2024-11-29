@@ -454,38 +454,6 @@
       }
     }
 
-    //リスト内の異体字セレクタ対応
-    for (let i = 0; i < checkString3.length; i = i + 4) {
-      // if (countString3.at(i) + countString3.at(i + 1) > 0) {
-      if (countString3.at(i + 1) > 0) {
-        const row = document.createElement("tr");
-        const cellText1 = document.createElement("td");
-        const cellText2 = document.createElement("td");
-        const cellText3 = document.createElement("td");
-        const cellText4 = document.createElement("td");
-
-        //第1列
-        cellText1.innerHTML = checkString3.at(i);
-        row.appendChild(cellText1);
-
-        //第2列
-        cellText2.innerHTML = countString3.at(i);
-        row.appendChild(cellText2);
-
-        //第3列
-        let selectmoji = checkString3.substring(i + 1, i + 4);
-        cellText3.innerHTML = selectmoji;
-        row.appendChild(cellText3);
-
-        //第4列
-        cellText4.innerHTML = countString3.at(i + 1);
-
-        row.appendChild(cellText4);
-        alltbody.appendChild(row);
-        allTable.appendChild(alltbody);
-      }
-    }
-
     //リスト外の異体字セレクタ対応
     for (let i = 0; i < newItaiji.length; i++) {
       const row = document.createElement("tr");
@@ -514,30 +482,32 @@
       allTable.appendChild(alltbody);
     }
 
+
+
     //並べ替え 第1列でソートする
     firstsortRows();
-    function firstsortRows() {
-      const table = document.querySelector("table");
-      const records = [];
-      for (let i = 1; i < table.rows.length; i++) {
-        const record = {};
-        record.row = table.rows[i];
-        record.key = table.rows[i].cells[0].textContent;
-        records.push(record);
-      }
+    // function firstsortRows() {
+    //   const table = document.querySelector("table");
+    //   const records = [];
+    //   for (let i = 1; i < table.rows.length; i++) {
+    //     const record = {};
+    //     record.row = table.rows[i];
+    //     record.key = table.rows[i].cells[0].textContent;
+    //     records.push(record);
+    //   }
 
-      records.sort(compareKeys);
+    //   records.sort(compareKeys);
 
-      for (let i = 0; i < records.length; i++) {
-        table.appendChild(records[i].row);
-      }
-    }
+    //   for (let i = 0; i < records.length; i++) {
+    //     table.appendChild(records[i].row);
+    //   }
+    // }
 
-    function compareKeys(a, b) {
-      if (a.key < b.key) return -1;
-      if (a.key > b.key) return 1;
-      return 0;
-    }
+    // function compareKeys(a, b) {
+    //   if (a.key < b.key) return -1;
+    //   if (a.key > b.key) return 1;
+    //   return 0;
+    // }
 
     // display: noneを削除
     let elementEndOfTable = document.getElementById('endOfTable');
@@ -547,5 +517,106 @@
 
     // console.log("最終", allList);
   });
+
+
+
+
+
+
+
+  //「標準的でない字体になる字」の表を表示する
+  document.querySelector('#listup').addEventListener('click', () => {
+    const allList = document.getElementById("letterList2");
+    const allTable = document.createElement("table");
+    const alltbody = document.createElement("tbody");
+    const alltr1 = document.createElement("tr");
+    const allth1 = document.createElement("th");
+    const allth2 = document.createElement("th");
+    const allth3 = document.createElement("th");
+    const allth4 = document.createElement("th");
+
+    allList.textContent = "";
+    allTable.textContent = "";
+    allth1.textContent = "フォントによって標準的でない字体になる字";
+    allth2.textContent = "出現数";
+    allth3.textContent = "標準的でない字体";
+    allth4.textContent = "出現数";
+
+    alltr1.appendChild(allth1);
+    alltr1.appendChild(allth2);
+    alltr1.appendChild(allth3);
+    alltr1.appendChild(allth4);
+
+    alltbody.appendChild(alltr1);
+    allTable.appendChild(alltbody);
+    allList.appendChild(allTable);
+
+
+
+    //リスト内の異体字セレクタ対応
+    for (let i = 0; i < checkString3.length; i = i + 4) {
+      if (countString3.at(i) + countString3.at(i + 1) > 0) {
+        // if (countString3.at(i + 1) > 0) {
+        const row = document.createElement("tr");
+        const cellText1 = document.createElement("td");
+        const cellText2 = document.createElement("td");
+        const cellText3 = document.createElement("td");
+        const cellText4 = document.createElement("td");
+
+        //第1列
+        cellText1.innerHTML = checkString3.at(i);
+        row.appendChild(cellText1);
+
+        //第2列
+        cellText2.innerHTML = countString3.at(i);
+        row.appendChild(cellText2);
+
+        //第3列
+        let selectmoji = checkString3.substring(i + 1, i + 4);
+        cellText3.innerHTML = selectmoji;
+        row.appendChild(cellText3);
+
+        //第4列
+        cellText4.innerHTML = countString3.at(i + 1);
+
+        row.appendChild(cellText4);
+        alltbody.appendChild(row);
+        allTable.appendChild(alltbody);
+      }
+    }
+
+    // display: noneを削除
+    let elementEndOfTable = document.getElementById('endOfTable');
+    let elementChukiTable = document.getElementById('chukiTable');
+    elementEndOfTable.style.display = 'block';
+    elementChukiTable.style.display = 'block';
+
+  });
+
+
+
+  function firstsortRows() {
+    const table = document.querySelector("table");
+    const records = [];
+    for (let i = 1; i < table.rows.length; i++) {
+      const record = {};
+      record.row = table.rows[i];
+      record.key = table.rows[i].cells[0].textContent;
+      records.push(record);
+    }
+
+    records.sort(compareKeys);
+
+    for (let i = 0; i < records.length; i++) {
+      table.appendChild(records[i].row);
+    }
+  }
+
+  function compareKeys(a, b) {
+    if (a.key < b.key) return -1;
+    if (a.key > b.key) return 1;
+    return 0;
+  }
+
 
 }

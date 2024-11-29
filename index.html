@@ -11,7 +11,8 @@
 3/21 ページ全体のメニュー設置、同レスポンシブ化、漢字構成図を追加
 3/28 漢字構成図を改善、異体字セレクタ文字へのclass付与を修正、サロゲート文字への対応を修正、faviconアイコンを設定
 4/16 字体ごとの出現数リスト表示機能を追加（但しBMP面の文字に限る）、漢字チェックをリアルタイムで実行するように改修
-4/23 出現数リスト表示を、サロゲートペア・異体字セレクタにも対応-->
+4/23 出現数リスト表示を、サロゲートペア・異体字セレクタにも対応
+12/2 「フォントによって字体が変わってしまう可能性のある字」リストの表示機能を追加-->
 
 <html lang="ja">
 
@@ -55,20 +56,21 @@
 
   <p><br>学年別教育漢字、常用漢字表外漢字と、標準的でない字体をチェックします。
     <br>ご利用の前に<a href="about.html" target="_blank">使い方</a>をお読みください。
+    <!-- <br>本バージョンでは、教育漢字外の常用漢字を<span class="kanji joyo">淡いブルーアミ</span>で表示します。 -->
     <br>
     <br>凡例：
     <img class="zoom" src="img/kanji2mini.png" width="240">
     <span class="caption">※クリックで拡大します</span>
-    <span class="kanji joyo itaiji"><br>　　標準的でない字体</span><span class="kanji joyo">[=標準的な字体]</span>
+    <!-- <span class="kanji joyo itaiji"><br>　　標準的でない字体</span><span class="kanji joyo">[=標準的な字体]</span>
     <span class="kanji joyo"><br>　　JIS90フォントで字形が変わる字[△</span><span class="kanji joyo itaiji">標準的でない字体</span><span
-      class="kanji joyo">]</span>
+      class="kanji joyo">]</span> -->
   </p>
 
   <div id="zoomback">
     <img id="zooming" src="">
   </div>
 
-  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>last updated at 2024/4/23 <br>direction and text by Takashi
+  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>last updated at 2024/12/2 <br>direction and text by Takashi
     Itakura<br>coding by Nobuo Tsukahara
   </div>
 
@@ -80,11 +82,14 @@
     <br>
     <!-- <button id="checkButton">Check</button> -->
     <button id="clearButton">データクリア</button>
-    <br><button id="listup">字体ごとの出現数リスト表示</button> <small id="chukiTable">※標準的でない字体があった場合の、各字体の出現数をカウントしています。<br>　テキストを変更した際は、再度「リスト表示」ボタンを押してリストを更新してください。</small>
+    <br><button id="listup">字体ごとの出現数リスト表示</button> <small id="chukiTable">※標準的でない字体と、フォントによって字体が変わってしまう可能性のある字体をカウントします。<br>　テキストを変更した際は、再度「リスト表示」ボタンを押してリストを更新してください。
+    <br>　リストはマウスで選択してコピーし、excelの表に貼り付けることができます。</small>
   </p>
 
   <p id="chuuki"></p>
   <div id="letterList"></div>
+  <br>
+  <div data-color-scheme="greenyellow" id="letterList2"></div>
   <div id="endOfTable"><hr></div>
   <p id="output"></p>
 
