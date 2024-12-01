@@ -9,7 +9,9 @@
   const checkString2 = '吉𠮷稽𥡴隙𨻶真眞巽巽兎兔卉卉鋏𨦇饒𩜙';
 
   // フォントで表示される異体字リスト  標準字（単独コード）・異体字(異体字セレクタ）の順で並ぶ
-  const checkString3 = '茨茨󠄀淫淫󠄀餌餌󠄀牙牙󠄀葛葛󠄀僅僅󠄀隙隙󠄀煎煎󠄀詮詮󠄀遡遡󠄀遜遜󠄀捗捗󠄀溺溺󠄀賭賭󠄀謎謎󠄀箸箸󠄀蔽蔽󠄀蔑蔑󠄀餅餅󠄀嘲嘲󠄀逢逢󠄀芦芦󠄀飴飴󠄀溢溢󠄀鰯鰯󠄀迂迂󠄀厩厩󠄀噂噂󠄀襖襖󠄀迦迦󠄀恢恢󠄀晦晦󠄀鞄鞄󠄀翰翰󠄀翫翫󠄀徽徽󠄀祇祇󠄀汲汲󠄀笈笈󠄀卿卿󠄀饗饗󠄀喰喰󠄀櫛櫛󠄁屑屑󠄀祁祁󠄀倦倦󠄀捲捲󠄀諺諺󠄀巷巷󠄀鵠鵠󠄀甑甑󠄀榊榊󠄀薩薩󠄀鯖鯖󠄀錆錆󠄀餐餐󠄀杓杓󠄀灼灼󠄀酋酋󠄀薯薯󠄀藷藷󠄀哨哨󠄀鞘鞘󠄀蝕蝕󠄀訊訊󠄀逗逗󠄀摺摺󠄀撰撰󠄀煽煽󠄀穿穿󠄀箭箭󠄀噌噌󠄀揃揃󠄀腿腿󠄀蛸蛸󠄀辿辿󠄀樽樽󠄀歎歎󠄀註註󠄀瀦瀦󠄀槌槌󠄀鎚鎚󠄀辻辻󠄀鄭鄭󠄀擢擢󠄀兎兎󠄀堵堵󠄀屠屠󠄀瀞瀞󠄀遁遁󠄀灘灘󠄀楢楢󠄀禰禰󠄀牌牌󠄀這這󠄀秤秤󠄀叛叛󠄀挽挽󠄀樋樋󠄀稗稗󠄀逼逼󠄀謬謬󠄀豹豹󠄀廟廟󠄀瀕瀕󠄀瞥瞥󠄀篇篇󠄀娩娩󠄀庖庖󠄀蓬蓬󠄀鱒鱒󠄀迄迄󠄀儲儲󠄀籾籾󠄀鑓鑓󠄀愈愈󠄀猷猷󠄀漣漣󠄁煉煉󠄁簾簾󠄀榔榔󠄀冤冤󠄀叟叟󠄀囀囀󠄀扁扁󠄀疼疼󠄀篝篝󠄀艘艘󠄀芒芒󠄀蠅蠅󠄀訝訝󠄀騙騙󠄀鴉鴉󠄀';
+  const checkString3 = '倦倦󠄀僅僅󠄀儲儲󠄀兎兎󠄀冤冤󠄀卿卿󠄀厩厩󠄀叛叛󠄀叟叟󠄀哨哨󠄀喰喰󠄀嘲嘲󠄀噂噂󠄀噌噌󠄀囀囀󠄀堵堵󠄀娩娩󠄀屑屑󠄀屠屠󠄀巷巷󠄀庖庖󠄀廟廟󠄀徽徽󠄀恢恢󠄀愈愈󠄀扁扁󠄀挽挽󠄀捗捗󠄀捲捲󠄀揃揃󠄀摺摺󠄀撰撰󠄀擢擢󠄀晦晦󠄀杓杓󠄀楢楢󠄀榊榊󠄀榔榔󠄀槌槌󠄀樋樋󠄀樽樽󠄀櫛櫛󠄁歎歎󠄀汲汲󠄀淫淫󠄀溢溢󠄀溺溺󠄀漣漣󠄁瀕瀕󠄀瀞瀞󠄀瀦瀦󠄀灘灘󠄀灼灼󠄀煉煉󠄁煎煎󠄀煽煽󠄀牌牌󠄀牙牙󠄀猷猷󠄀甑甑󠄀疼疼󠄀瞥瞥󠄀祁祁󠄀祇祇󠄀禰禰󠄀秤秤󠄀稗稗󠄀穿穿󠄀笈笈󠄀箭箭󠄀箸箸󠄀篇篇󠄀篝篝󠄀簾簾󠄀籾籾󠄀翫翫󠄀翰翰󠄀腿腿󠄀艘艘󠄀芒芒󠄀芦芦󠄀茨茨󠄀葛葛󠄀蓬蓬󠄀蔑蔑󠄀蔽蔽󠄀薩薩󠄀薯薯󠄀藷藷󠄀蛸蛸󠄀蝕蝕󠄀蠅蠅󠄀襖襖󠄀訊訊󠄀訝訝󠄀註註󠄀詮詮󠄀諺諺󠄀謎謎󠄀謬謬󠄀豹豹󠄀賭賭󠄀辻辻󠄀辿辿󠄀迂迂󠄀迄迄󠄀迦迦󠄀逗逗󠄀這這󠄀逢逢󠄀逼逼󠄀遁遁󠄀遜遜󠄀遡遡󠄀鄭鄭󠄀酋酋󠄀錆錆󠄀鎚鎚󠄀鑓鑓󠄀隙隙󠄀鞄鞄󠄀鞘鞘󠄀飴飴󠄀餅餅󠄀餌餌󠄀餐餐󠄀饗饗󠄀騙騙󠄀鯖鯖󠄀鰯鰯󠄀鱒鱒󠄀鴉鴉󠄀鵠鵠󠄀';
+
+
 
 
   let countString = new Array(checkString.length);
@@ -256,7 +258,6 @@
         }
       }
     }
-
   } //funchtion checkCharacter() 終わり
 
 
@@ -415,8 +416,8 @@
 
         //第4列
         cellText4.innerHTML = countString.at(i + 1);
-
         row.appendChild(cellText4);
+
         alltbody.appendChild(row);
         allTable.appendChild(alltbody);
       }
@@ -447,8 +448,8 @@
 
         //第4列
         cellText4.innerHTML = countString2.at(i + 1);
-
         row.appendChild(cellText4);
+
         alltbody.appendChild(row);
         allTable.appendChild(alltbody);
       }
@@ -482,32 +483,8 @@
       allTable.appendChild(alltbody);
     }
 
-
-
     //並べ替え 第1列でソートする
     firstsortRows();
-    // function firstsortRows() {
-    //   const table = document.querySelector("table");
-    //   const records = [];
-    //   for (let i = 1; i < table.rows.length; i++) {
-    //     const record = {};
-    //     record.row = table.rows[i];
-    //     record.key = table.rows[i].cells[0].textContent;
-    //     records.push(record);
-    //   }
-
-    //   records.sort(compareKeys);
-
-    //   for (let i = 0; i < records.length; i++) {
-    //     table.appendChild(records[i].row);
-    //   }
-    // }
-
-    // function compareKeys(a, b) {
-    //   if (a.key < b.key) return -1;
-    //   if (a.key > b.key) return 1;
-    //   return 0;
-    // }
 
     // display: noneを削除
     let elementEndOfTable = document.getElementById('endOfTable');
@@ -519,12 +496,7 @@
   });
 
 
-
-
-
-
-
-  //「標準的でない字体になる字」の表を表示する
+  //「フォントで標準的でない字体になる字」の表を表示する
   document.querySelector('#listup').addEventListener('click', () => {
     const allList = document.getElementById("letterList2");
     const allTable = document.createElement("table");
@@ -550,8 +522,6 @@
     alltbody.appendChild(alltr1);
     allTable.appendChild(alltbody);
     allList.appendChild(allTable);
-
-
 
     //リスト内の異体字セレクタ対応
     for (let i = 0; i < checkString3.length; i = i + 4) {
@@ -584,15 +554,7 @@
         allTable.appendChild(alltbody);
       }
     }
-
-    // display: noneを削除
-    let elementEndOfTable = document.getElementById('endOfTable');
-    let elementChukiTable = document.getElementById('chukiTable');
-    elementEndOfTable.style.display = 'block';
-    elementChukiTable.style.display = 'block';
-
   });
-
 
 
   function firstsortRows() {
@@ -617,6 +579,5 @@
     if (a.key > b.key) return 1;
     return 0;
   }
-
 
 }
