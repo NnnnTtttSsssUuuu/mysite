@@ -30,7 +30,7 @@
   //リアルタイムで変換する
   let tid;
   delay = 500;
-  document.querySelector('#input').addEventListener('keyup', function () {
+  document.querySelector('#input').addEventListener('input', function () {
     tid && clearTimeout(tid);
     tid = setTimeout(checkCharacter, delay);
   });
