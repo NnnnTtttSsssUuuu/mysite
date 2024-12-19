@@ -32,7 +32,13 @@
   delay = 500;
   document.querySelector('#input').addEventListener('input', function () {
     tid && clearTimeout(tid);
+
+    //カーソルをwaitに変更
+    document.body.style.cursor = 'wait';
+    document.querySelector('#input').style.cursor = 'wait';
+
     tid = setTimeout(checkCharacter, delay);
+
   });
 
   // チェックボタン押下の処理
@@ -247,7 +253,7 @@
       chuukiText.insertAdjacentHTML('afterbegin', "【注意】テキストの中に漢字の部首の文字コードが" + bushu + "字混じっています。確認してください。<hr>");
     }
 
-    //リスト外の異体字セレクタがあった際、基盤文字をカウントする
+    //リスト外の異体字セレクタがあった際、基底文字をカウントする
     if (newItaijiAri > 0) {
       for (let i = 0; i < inputText.length; i++) {
         let c = inputText.substring(i, i + 1);
@@ -258,6 +264,11 @@
         }
       }
     }
+
+    //カーソルを戻す
+    document.body.style.cursor = 'default';
+    document.querySelector('#input').style.cursor = 'default';
+
   } //funchtion checkCharacter() 終わり
 
 
