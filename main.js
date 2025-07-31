@@ -24,6 +24,7 @@
   let countShikaruJ;
   let countShikaruI;
   let newItaijiAri = 0;
+  let gakunenColor = []; //色を付ける教育漢字
 
   document.getElementById('input').focus();
 
@@ -50,6 +51,8 @@
     chuukiText.textContent = "";
     let hyojunkaText = "";
     let bushu = 0;
+
+    kyoikuColor();//教育漢字に色を付けるオプション
 
     countString.fill(0);
     countString2.fill(0);
@@ -187,14 +190,26 @@
         }
 
         if (year = getYearOfKyoikuKanji(c)) {
+
+          //教育漢字に色を付けるオプション
+          if (gakunenColor[year] === "blue") {
+            c = "<span class=\"blueColor\">" + c + "</span>";
+            //  klass.push("blueColor");
+          }
+
           let kyoiku = "<ruby>" + c + "<rt>" + year + "</rt></ruby>"
           outputText.insertAdjacentHTML('beforeend', kyoiku);
           klass.push("joyo");
+
           continue;
         }
 
-        if (isJoyoKanji(c))
+        if (isJoyoKanji(c)) {
           klass.push("joyo");
+
+          if (gakunenColor[7] === "green")
+            klass.push("greenColor");
+        }
 
         if (checkString.indexOf(c) % 2 == 1)
           klass.push("itaiji");
@@ -268,6 +283,8 @@
     //カーソルを戻す
     document.body.style.cursor = 'default';
     document.querySelector('#input').style.cursor = 'default';
+
+    // console.log("最終生成html",outputText);
 
   } //funchtion checkCharacter() 終わり
 
@@ -590,5 +607,31 @@
     if (a.key > b.key) return 1;
     return 0;
   }
+
+  //アコーディオンタイトル
+  document.addEventListener("DOMContentLoaded", () => {
+    const title = document.querySelectorAll('.js-accordion-title');
+
+    for (let i = 0; i < title.length; i++) {
+      let titleEach = title[i];
+      let content = titleEach.nextElementSibling;
+      titleEach.addEventListener('click', () => {
+        titleEach.classList.toggle('is-active');
+        content.classList.toggle('is-open');
+      });
+    }
+  });
+
+
+
+
+  function kyoikuColor() {
+    for (let i = 1; i <= 7; i++) {
+      const value = document.querySelector(`input[name="gakunen${i}"]:checked`).value;
+      // console.log(`学年${i}：${value}`);
+      gakunenColor[i] = value;
+    }
+  }
+
 
 }

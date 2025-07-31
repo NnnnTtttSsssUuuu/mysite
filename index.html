@@ -71,10 +71,45 @@
     <img id="zooming" src="">
   </div>
 
-  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>last updated at 2025/01/06 <br>direction and text by
-    Takashi
-    Itakura<br>coding by Nobuo Tsukahara
+  <div id="qualityCenter">本WEBアプリは小学館出版クォリティーセンターが制作しました<br><br>last updated at 2025/07/31 <br>direction and text by
+    Takashi Itakura
+    <br>coding by Nobuo Tsukahara
   </div>
+
+
+
+  <section id="option">
+    <dt class="accordion_title js-accordion-title" id="option_title"> 　オプション機能を使用する</dt>
+    <dd class="accordion_content" id="option_content">
+      教育漢字に色を付ける
+      <br> 　一年生
+      <label><input type="radio" name="gakunen1" value="nocolor" checked>無色</label>
+      <label><input type="radio" name="gakunen1" value="blue"><span class="blueColor">ブルー</span></label>
+      <br>　二年生
+      <label><input type="radio" name="gakunen2" value="nocolor" checked>無色</label>
+      <label><input type="radio" name="gakunen2" value="blue"><span class="blueColor">ブルー</span></label>
+      <br>　三年生
+      <label><input type="radio" name="gakunen3" value="nocolor" checked>無色</label>
+      <label><input type="radio" name="gakunen3" value="blue"><span class="blueColor">ブルー</span></label>
+      <br>　四年生
+      <label><input type="radio" name="gakunen4" value="nocolor" checked>無色</label>
+      <label><input type="radio" name="gakunen4" value="blue"><span class="blueColor">ブルー</span></label>
+      <br>　五年生
+      <label><input type="radio" name="gakunen5" value="nocolor" checked>無色</label>
+      <label><input type="radio" name="gakunen5" value="blue"><span class="blueColor">ブルー</span></label>
+      <br>　六年生
+      <label><input type="radio" name="gakunen6" value="nocolor" checked>無色</label>
+      <label><input type="radio" name="gakunen6" value="blue"><span class="blueColor">ブルー</span></label>
+
+      <br> 教育漢字以外の常用漢字に色を付ける
+      <br>　　　　<label><input type="radio" name="gakunen7" value="nocolor" checked>無色</label>
+      <label><input type="radio" name="gakunen7" value="green"><span class="greenColor">グリーン</span></label>
+
+      <br><button type="button" id="kyoikuColor" onclick="checkCharacter()">テキストを再チェック</button>
+    </dd>
+  </section>
+
+
 
   <p>
 

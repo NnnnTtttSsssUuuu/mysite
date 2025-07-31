@@ -181,6 +181,22 @@ display: none;
   font-size: 120%;
 }
 
+.blueColor{
+    position: relative;
+ background: lightcyan;
+}
+
+.greenColor{
+    position: relative;
+ background: greenyellow;
+}
+
+.kanji.joyo.greenColor{
+    position: relative;
+ background: greenyellow;
+}
+
+
 .kakomi {
   border: 4px darkslategray dotted;
   margin: 3px 1em;
@@ -265,6 +281,27 @@ display: none;
   height: auto;
   opacity: 1;
   line-height: normal;
+}
+
+#option{
+  margin: 0 0 0 36px;
+  padding: 5px 0 0 0;
+  width: 300px;
+  font-size: 14px;
+  border:1px solid;
+  text-decoration: none;
+}
+
+#option_title {
+    margin:-5px -2px -4px 0;
+    padding: 5px 0 0 20px;
+    font-size: 15px;
+    height: 30px;
+    border: none;
+}
+
+#option_content {
+padding: 2px;
 }
 
 .sp-nav {
