@@ -195,6 +195,8 @@
           if (gakunenColor[year] === "blue") {
             c = "<span class=\"blueColor\">" + c + "</span>";
             //  klass.push("blueColor");
+
+
           }
 
           let kyoiku = "<ruby>" + c + "<rt>" + year + "</rt></ruby>"
@@ -289,18 +291,18 @@
   } //funchtion checkCharacter() 終わり
 
 
-
   // クリアボタン押下の処理
   document.querySelector('#clearButton').addEventListener('click', () => {
     location.reload();
   });
+
 
   // プリントボタン押下の処理
   document.querySelector('#printButton').addEventListener('click', printLists);
   function printLists() {
     const target = document.getElementById("Lists");
 
-    //Blobで書き直し
+    //Blobでプリント図像を作成
    const css = `
     body { margin: 20px; }
     table {
@@ -623,7 +625,6 @@
 
     allList.textContent = "";
     allTable.textContent = "";
-    // allth1.textContent = "フォントによって標準的でない字体になる字";
     allth1.innerHTML = "フォントによって<br>標準的でない<br>字体になる字";
     allth2.textContent = "出現数";
     allth3.textContent = "標準的でない字体";
