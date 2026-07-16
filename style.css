@@ -21,11 +21,11 @@ h1 {
   margin: 0 0 0 0;
   padding: 10px 1em 0 1em;
   line-height: 1.2em;
-  font-feature-settings: "palt" ;
+  font-feature-settings: "palt";
 }
 
-.subtitle{
-  font-size:13px;
+.subtitle {
+  font-size: 13px;
   font-weight: normal;
   margin: 0;
   padding: 0 1em 0 30px;
@@ -51,12 +51,12 @@ h4 {
   margin: 0 20px 0;
 }
 
-h5{
+h5 {
   margin: 0 0.25em 0 0.25em;
   padding: 0.5em 2em 0em 2em;
   font-size: 120%;
   font-weight: normal;
-  text-decoration:underline;
+  text-decoration: underline;
 
 }
 
@@ -88,7 +88,6 @@ dd {
   height: 6em;
   font-size: 100%;
   line-height: 1.5;
-  /* margin:0 0 0 2em; */
 }
 
 #output {
@@ -107,26 +106,34 @@ dd {
   padding: 0 20px 0;
 }
 
-#zoomback{
-position: absolute;
-top: 0;
-width: 100vw;
-height: 100vh;
-background-color: rgba(0,0,0,0.8);
-display: flex;
-justify-content: center;
-align-items: center;
-display: none;
+#zoomback {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  display: none;
 }
 
-#zooming{
+#zooming {
   width: 80%;
   height: 80%;
   object-fit: contain;
+
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  isolation: isolate;
+
+  display: block;
 }
 
-.zoom{
-  margin:5px 0 0 0;
+.zoom {
+  margin: 5px 0 0 0;
   vertical-align: top;
 }
 
@@ -143,7 +150,6 @@ display: none;
 
 .pc-nav ul {
   display: flex;
-
 }
 
 .pc-nav ul li {
@@ -165,7 +171,6 @@ display: none;
 
 .kanji.joyo {
   background: transparent;
-  /* background: lightcyan; */
 }
 
 .kanji.itaiji {
@@ -181,19 +186,19 @@ display: none;
   font-size: 120%;
 }
 
-.blueColor{
-    position: relative;
- background: lightcyan;
+.blueColor {
+  position: relative;
+  background: lightcyan;
 }
 
-.greenColor{
-    position: relative;
- background: greenyellow;
+.greenColor {
+  position: relative;
+  background: greenyellow;
 }
 
-.kanji.joyo.greenColor{
-    position: relative;
- background: greenyellow;
+.kanji.joyo.greenColor {
+  position: relative;
+  background: greenyellow;
 }
 
 
@@ -211,11 +216,11 @@ display: none;
   font-size: 240%;
 }
 
-.small60{
+.small60 {
   font-size: 60%
 }
 
-.small80{
+.small80 {
   font-size: 80%;
   line-height: 0;
 }
@@ -283,146 +288,144 @@ display: none;
   line-height: normal;
 }
 
-#option{
+#option {
   margin: 0 0 0 36px;
   padding: 5px 0 0 0;
   width: 300px;
   font-size: 14px;
-  border:1px solid;
+  border: 1px solid;
   text-decoration: none;
 }
 
 #option_title {
-    margin:-5px -2px -4px 0;
-    padding: 5px 0 0 20px;
-    font-size: 15px;
-    height: 30px;
-    border: none;
+  margin: -5px -2px -4px 0;
+  padding: 5px 0 0 20px;
+  font-size: 15px;
+  height: 30px;
+  border: none;
 }
 
 #option_content {
-padding: 2px;
+  padding: 2px;
 }
 
 .sp-nav {
   display: none;
 }
 
-.dangumi{
+.dangumi {
   margin: 0 0.25em 0.25em 0.25em;
   padding: 0.25em 2em 0.25em 2em;
 }
 
-.dangumi li{
+.dangumi li {
   padding: 0 0 0 0.25em;
 }
 
-.dangumi li ul{
+.dangumi li ul {
   padding: 0 1em 0 1em;
 }
 
-.caption{
-  font-size:13px;
+.caption {
+  font-size: 13px;
   font-weight: normal;
   margin: 0;
   padding: 0;
   position: relative;
-  left:20px;
+  left: 20px;
   top: 5px;
   display: inline-block;
   vertical-align: middle;
 }
 
-.red{
+.red {
   color: red;
 }
 
-.qq:hover{
+.qq:hover {
   display: inline-block;
   transform: rotate(360deg);
   transition: all 1s;
 }
 
-.qqq:hover{
+.qqq:hover {
   display: inline-block;
   transform: rotate(-360deg);
   transition: all 1s;
 }
 
-#qualityCenter{
-position: absolute;
-top: 0;
-width: 90vw;
-height: 100vh;
-background-color: rgba(255,255,255,0.8);
-font-size: 16px;
-justify-content: center;
-text-align: center;
-align-items: center;
-display: none;
-margin: 0 1em;
+#qualityCenter {
+  position: absolute;
+  top: 0;
+  width: 90vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  display: none;
+  margin: 0 1em;
 }
 
-table{
+table {
   border-collapse: collapse;
   margin: 0 2em;
-  /* font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   font-family: "YuMincho", "游明朝", "Hiragino Mincho ProN", serif;
   font-size: 100%;
   font-weight: normal;
 }
 
-table th{
-    /* background-color:  #eee; */
-    border: solid 1px;
-    font-weight: normal;
+table th {
+  border: solid 1px;
+  font-weight: normal;
 }
 
-table td{
+table td {
   font-weight: normal;
   border: solid 1px;
   margin: 2em;
 }
 
-td:nth-of-type(1){
-  background:rgb(188, 233, 248);
+td:nth-of-type(1) {
+  background: rgb(188, 233, 248);
   width: 140px;
   font-size: 24px;
   text-align: center;
 }
 
-td:nth-of-type(2){
-  background:rgb(188, 233, 248);
+td:nth-of-type(2) {
+  background: rgb(188, 233, 248);
   text-align: center;
 }
 
-td:nth-of-type(3){
-  background:rgba(255, 192, 203, 0.678);
+td:nth-of-type(3) {
+  background: rgba(255, 192, 203, 0.678);
   width: 140px;
   font-size: 24px;
   text-align: center;
 }
 
-td:nth-of-type(4){
-  background:rgba(255, 192, 203, 0.678);
+td:nth-of-type(4) {
+  background: rgba(255, 192, 203, 0.678);
   text-align: center;
 }
 
-[data-color-scheme="greenyellow"] td:nth-of-type(1){
-  background:rgb(200,255,170);
+[data-color-scheme="greenyellow"] td:nth-of-type(1) {
+  background: rgb(200, 255, 170);
 }
 
-[data-color-scheme="greenyellow"] td:nth-of-type(2){
-  background:rgb(200,255,170);
+[data-color-scheme="greenyellow"] td:nth-of-type(2) {
+  background: rgb(200, 255, 170);
 }
 
-#endOfTable{
+#endOfTable {
   margin: 0 0.25em 0.1em 0.25em;
   padding: 0.25em 2em 0.1em 2em;
   display: none;
 }
 
-#chukiTable{
+#chukiTable {
   display: none;
 }
 
@@ -432,11 +435,9 @@ td:nth-of-type(4){
     display: none;
   }
 
-  .caption{
+  .caption {
     display: none;
   }
-
-
 
   #hamburger {
     position: relative;
