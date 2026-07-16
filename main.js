@@ -623,7 +623,8 @@
 
     allList.textContent = "";
     allTable.textContent = "";
-    allth1.textContent = "フォントによって標準的でない字体になる字";
+    // allth1.textContent = "フォントによって標準的でない字体になる字";
+    allth1.innerHTML = "フォントによって<br>標準的でない<br>字体になる字";
     allth2.textContent = "出現数";
     allth3.textContent = "標準的でない字体";
     allth4.textContent = "出現数";
