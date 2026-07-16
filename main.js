@@ -300,56 +300,133 @@
   function printLists() {
     const target = document.getElementById("Lists");
 
-    const printWindow = window.open(
-      "",
-      "PrintWindow",
-      "width=900,height=700,resizable=yes"
-    );
+//Blobで書き直し
+   const css = `
+    body { margin: 20px; }
+table {
+  border-collapse: collapse;
+  margin: 0 2em;
+  font-family: "YuMincho", "游明朝", "Hiragino Mincho ProN", serif;
+  font-size: 100%;
+  font-weight: normal;
+}
 
-    // document.write()を使わずに、DOMを操作して内容を追加する
-    printWindow.document.documentElement.lang = 'ja';
-    const head = printWindow.document.head;
-    const meta = printWindow.document.createElement('meta');
-    meta.charset = 'UTF-8';
-    head.appendChild(meta);
-    const title = printWindow.document.createElement('title');
-    title.textContent = 'Print';
-    head.appendChild(title);
-    const link = printWindow.document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'style.css';
-    head.appendChild(link);
-    const style = printWindow.document.createElement('style');
-    style.textContent = 'body { margin: 20px; }';
-    head.appendChild(style);
+table th {
+  border: solid 1px;
+  font-weight: normal;
+}
 
-    // body の設定
-    const body = printWindow.document.body;
-    const heading = printWindow.document.createElement('p');
-    heading.textContent = '字体ごとの出現数リスト';
-    body.appendChild(heading);
+table td {
+  font-weight: normal;
+  border: solid 1px;
+  margin: 2em;
+}
 
-    // target の内容をコピーして追加
-    const importedNode = printWindow.document.importNode(target, true);
-    body.appendChild(importedNode);
+td:nth-of-type(1) {
+  background: rgb(188, 233, 248);
+  width: 140px;
+  font-size: 24px;
+  text-align: center;
+}
 
-    // ページの描画が終わってから印刷
-    link.onload = () => {
-      printWindow.focus();
-      printWindow.print();
-      setTimeout(() => {
-        printWindow.close();
-      }, 300);
+td:nth-of-type(2) {
+  background: rgb(188, 233, 248);
+  text-align: center;
+}
+
+td:nth-of-type(3) {
+  background: rgba(255, 192, 203, 0.678);
+  width: 140px;
+  font-size: 24px;
+  text-align: center;
+}
+
+td:nth-of-type(4) {
+  background: rgba(255, 192, 203, 0.678);
+  text-align: center;
+}
+
+[data-color-scheme="greenyellow"] td:nth-of-type(1) {
+  background: rgb(200, 255, 170);
+}
+
+[data-color-scheme="greenyellow"] td:nth-of-type(2) {
+  background: rgb(200, 255, 170);
+}
+   `;
+
+    const html = `<!DOCTYPE html><html lang="ja"><head>
+        <meta charset="UTF-8">
+        <style>${css}</style>
+        </head><body>
+        <p>字体ごとの出現数リスト</p>
+        ${target.outerHTML}
+        </body></html>`;
+    
+    const blob = new Blob([html], {type: 'text/html'});
+    const url = URL.createObjectURL(blob);
+    const printWindow = window.open(url, "PrintWindow", "width=900,height=700");
+    
+    printWindow.onload = () => {
+        printWindow.focus();
+        printWindow.print();
+        setTimeout(() => {
+            printWindow.close();
+            URL.revokeObjectURL(url);
+        }, 300);
     };
 
-    // style.css が読めなくても印刷は実行する
-    link.onerror = () => {
-      printWindow.focus();
-      printWindow.print();
-      setTimeout(() => {
-        printWindow.close();
-      }, 300);
-    };
+
+    // const printWindow = window.open(
+    //   "",
+    //   "PrintWindow",
+    //   "width=900,height=700,resizable=yes"
+    // );
+
+    // // document.write()を使わずに、DOMを操作して内容を追加する
+    // printWindow.document.documentElement.lang = 'ja';
+    // const head = printWindow.document.head;
+    // const meta = printWindow.document.createElement('meta');
+    // meta.charset = 'UTF-8';
+    // head.appendChild(meta);
+    // const title = printWindow.document.createElement('title');
+    // title.textContent = 'Print';
+    // head.appendChild(title);
+    // const link = printWindow.document.createElement('link');
+    // link.rel = 'stylesheet';
+    // link.href = 'style.css';
+    // head.appendChild(link);
+    // const style = printWindow.document.createElement('style');
+    // style.textContent = 'body { margin: 20px; }';
+    // head.appendChild(style);
+
+    // // body の設定
+    // const body = printWindow.document.body;
+    // const heading = printWindow.document.createElement('p');
+    // heading.textContent = '字体ごとの出現数リスト';
+    // body.appendChild(heading);
+
+    // // target の内容をコピーして追加
+    // const importedNode = printWindow.document.importNode(target, true);
+    // body.appendChild(importedNode);
+
+    // // ページの描画が終わってから印刷
+    // link.onload = () => {
+    //   printWindow.focus();
+    //   printWindow.print();
+    //   setTimeout(() => {
+    //     printWindow.close();
+    //   }, 300);
+    // };
+
+    // // style.css が読めなくても印刷は実行する
+    // link.onerror = () => {
+    //   printWindow.focus();
+    //   printWindow.print();
+    //   setTimeout(() => {
+    //     printWindow.close();
+    //   }, 300);
+    // };
 
   }
 
