@@ -303,7 +303,7 @@
     const target = document.getElementById("Lists");
 
     //Blobでプリント図像を作成
-   const css = `
+    const css = `
     body { margin: 20px; }
     table {
     border-collapse: collapse;
@@ -349,6 +349,11 @@
     width: 60px;
     text-align: center;
     }
+
+    td:nth-of-type(5) {
+  width: auto;
+  font-size: 12px;
+}
 
     [data-color-scheme="greenyellow"] td:nth-of-type(1) {
     background: rgb(200, 255, 170);
@@ -460,7 +465,26 @@
     else if (/^[胃異遺域宇映延沿恩我灰拡革閣割株干巻看簡危机揮貴疑吸供胸郷勤筋系敬警劇激穴券絹権憲源厳己呼誤后孝皇紅降鋼刻穀骨困砂座済裁策冊蚕至私姿視詞誌磁射捨尺若樹収宗就衆従縦縮熟純処署諸除承将傷障蒸針仁垂推寸盛聖誠舌宣専泉洗染銭善奏窓創装層操蔵臓存尊退宅担探誕段暖値宙忠著庁頂腸潮賃痛敵展討党糖届難乳認納脳派拝背肺俳班晩否批秘俵腹奮並陛閉片補暮宝訪亡忘棒枚幕密盟模訳郵優預幼欲翌乱卵覧裏律臨朗論]+$/.test(c)) { return 6; }
   }
 
+
+
   //表を表示する
+  let kanjiSetsumei = [];
+
+  //json読み込み
+  fetch('setsumei.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('HTTP error! status: ' + response.status);
+      }
+      return response.json();  //内部でparseされ、配列となる
+    })
+    .then(setsumei => {
+      kanjiSetsumei = setsumei;
+    })
+    .catch(error => console.error('Error loading JSON:', error));
+
+
+  //上の表
   document.querySelector('#listup').addEventListener('click', () => {
     const allList = document.getElementById("letterList");
     const allTable = document.createElement("table");
@@ -471,10 +495,14 @@
     const allth2 = document.createElement("th");
     const allth3 = document.createElement("th");
     const allth4 = document.createElement("th");
+    const allth5 = document.createElement("th");
     const alltd1 = document.createElement("td");
     const alltd2 = document.createElement("td");
     const alltd3 = document.createElement("td");
     const alltd4 = document.createElement("td");
+    const alltd5 = document.createElement("td");
+
+    let targetKanji = 0;
 
     allList.textContent = "";
     allTable.textContent = "";
@@ -482,11 +510,13 @@
     allth2.textContent = "出現数";
     allth3.textContent = "標準的でない字体";
     allth4.textContent = "出現数";
+    allth5.textContent = "字体選びのヒント";
 
     alltr1.appendChild(allth1);
     alltr1.appendChild(allth2);
     alltr1.appendChild(allth3);
     alltr1.appendChild(allth4);
+    alltr1.appendChild(allth5);
 
     alltbody.appendChild(alltr1);
     allTable.appendChild(alltbody);
@@ -498,11 +528,13 @@
       alltd2.textContent = countShikaruJ;
       alltd3.textContent = "叱";
       alltd4.textContent = countShikaruI;
+      alltd5.textContent = "右が主に使われる（左は常用漢字）";
 
       alltr2.appendChild(alltd1);
       alltr2.appendChild(alltd2);
       alltr2.appendChild(alltd3);
       alltr2.appendChild(alltd4);
+      alltr2.appendChild(alltd5);
 
       alltbody.appendChild(alltr2);
       allTable.appendChild(alltbody);
@@ -517,6 +549,7 @@
         const cellText2 = document.createElement("td");
         const cellText3 = document.createElement("td");
         const cellText4 = document.createElement("td");
+        const cellText5 = document.createElement("td");
 
         //第1列
         cellText1.innerHTML = checkString.at(i);
@@ -534,6 +567,19 @@
         cellText4.innerHTML = countString.at(i + 1);
         row.appendChild(cellText4);
 
+        //第5列
+        //setsumeiのなかで、checkString.at(i+1)に対応する略説を探す
+
+        for (let j = 0; j < kanjiSetsumei.length; j++) {
+          if (kanjiSetsumei[j].moji === checkString.at(i + 1)) {
+            targetKanji = j;
+            continue;
+          }
+          cellText5.innerHTML = kanjiSetsumei[targetKanji].ryakusetsu;
+          row.appendChild(cellText5);
+        }
+
+
         alltbody.appendChild(row);
         allTable.appendChild(alltbody);
       }
@@ -548,6 +594,7 @@
         const cellText2 = document.createElement("td");
         const cellText3 = document.createElement("td");
         const cellText4 = document.createElement("td");
+        const cellText5 = document.createElement("td");
 
         //第1列
         cellText1.innerHTML = checkString2.at(i);
@@ -566,6 +613,25 @@
         cellText4.innerHTML = countString2.at(i + 1);
         row.appendChild(cellText4);
 
+
+        //第5列
+        // cellText5.innerHTML = countString2.at(i + 1);
+        for (let j = 0; j < kanjiSetsumei.length; j++) {
+          if (kanjiSetsumei[j].moji === salomoji) {
+            targetKanji = j;
+            //  console.log("サロゲート発見",kanjiSetsumei[targetKanji.moji]);
+            continue;
+          }
+          // console.log("サロゲート",kanjiSetsumei[targetKanji.moji]);
+          cellText5.innerHTML = kanjiSetsumei[targetKanji].ryakusetsu;
+          row.appendChild(cellText5);
+        }
+
+
+
+
+
+
         alltbody.appendChild(row);
         allTable.appendChild(alltbody);
       }
@@ -578,6 +644,7 @@
       const cellText2 = document.createElement("td");
       const cellText3 = document.createElement("td");
       const cellText4 = document.createElement("td");
+      const cellText5 = document.createElement("td");
 
       //第1列
       cellText1.innerHTML = newItaijiMoto.at(i);
@@ -593,8 +660,12 @@
 
       //第4列
       cellText4.innerHTML = countItaiji.at(i);
-
       row.appendChild(cellText4);
+
+      //第5列
+      cellText5.innerHTML = "右は、左の字に「異体字セレクタ」が付いた字形";
+      row.appendChild(cellText5);
+
       alltbody.appendChild(row);
       allTable.appendChild(alltbody);
     }
@@ -612,7 +683,7 @@
   });
 
 
-  //「フォントで標準的でない字体になる字」の表を表示する
+  //下の表
   document.querySelector('#listup').addEventListener('click', () => {
     const allList = document.getElementById("letterList2");
     const allTable = document.createElement("table");
@@ -622,6 +693,9 @@
     const allth2 = document.createElement("th");
     const allth3 = document.createElement("th");
     const allth4 = document.createElement("th");
+        const allth5 = document.createElement("th");
+
+            let targetKanji = 0;
 
     allList.textContent = "";
     allTable.textContent = "";
@@ -629,11 +703,13 @@
     allth2.textContent = "出現数";
     allth3.textContent = "標準的でない字体";
     allth4.textContent = "出現数";
+        allth5.textContent = "字体選びのヒント";
 
     alltr1.appendChild(allth1);
     alltr1.appendChild(allth2);
     alltr1.appendChild(allth3);
     alltr1.appendChild(allth4);
+        alltr1.appendChild(allth5);
 
     alltbody.appendChild(alltr1);
     allTable.appendChild(alltbody);
@@ -648,6 +724,7 @@
         const cellText2 = document.createElement("td");
         const cellText3 = document.createElement("td");
         const cellText4 = document.createElement("td");
+        const cellText5 = document.createElement("td");
 
         //第1列
         cellText1.innerHTML = checkString3.at(i);
@@ -664,8 +741,19 @@
 
         //第4列
         cellText4.innerHTML = countString3.at(i + 1);
-
         row.appendChild(cellText4);
+
+        //第5列
+        for (let j = 0; j < kanjiSetsumei.length; j++) {
+          if (kanjiSetsumei[j].moji === selectmoji) {
+            targetKanji = j;
+            //  console.log("サロゲート発見",kanjiSetsumei[targetKanji.moji]);
+            continue;
+          }
+          cellText5.innerHTML = kanjiSetsumei[targetKanji].ryakusetsu;
+        }
+        row.appendChild(cellText5);
+
         alltbody.appendChild(row);
         allTable.appendChild(alltbody);
       }
