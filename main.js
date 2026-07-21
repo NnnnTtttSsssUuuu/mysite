@@ -693,9 +693,9 @@
     const allth2 = document.createElement("th");
     const allth3 = document.createElement("th");
     const allth4 = document.createElement("th");
-        const allth5 = document.createElement("th");
+    const allth5 = document.createElement("th");
 
-            let targetKanji = 0;
+    let targetKanji = 0;
 
     allList.textContent = "";
     allTable.textContent = "";
@@ -703,13 +703,13 @@
     allth2.textContent = "出現数";
     allth3.textContent = "標準的でない字体";
     allth4.textContent = "出現数";
-        allth5.textContent = "字体選びのヒント";
+    allth5.textContent = "字体選びのヒント";
 
     alltr1.appendChild(allth1);
     alltr1.appendChild(allth2);
     alltr1.appendChild(allth3);
     alltr1.appendChild(allth4);
-        alltr1.appendChild(allth5);
+    alltr1.appendChild(allth5);
 
     alltbody.appendChild(alltr1);
     allTable.appendChild(alltbody);
@@ -787,7 +787,6 @@
   //アコーディオンタイトル
   document.addEventListener("DOMContentLoaded", () => {
     const title = document.querySelectorAll('.js-accordion-title');
-
     for (let i = 0; i < title.length; i++) {
       let titleEach = title[i];
       let content = titleEach.nextElementSibling;
@@ -798,8 +797,66 @@
     }
   });
 
+  //オプション機能のチェック
+  document.querySelector('#option').addEventListener('click', () => {
+    const optionTitle = document.getElementById("option_title");
+    let optionValue = 0;
+    for (let i = 1; i <= 8; i++) {
+      const value = document.querySelector(`input[name="gakunen${i}"]:checked`).value;
+      if (value !== "nocolor") { optionValue++; };
+    }
 
+    if (optionValue > 0) {
+      optionTitle.textContent = "　オプション機能を使用中";
+      optionTitle.classList.add("red");
+      optionTitle.classList.remove("black");
+    } else {
+      optionTitle.textContent = "　オプション機能を使用する"
+      optionTitle.classList.add("black");
+      optionTitle.classList.remove("red");
+    }
 
+    //ヒントの消去
+    const value8 = document.querySelector(`input[name="gakunen8"]:checked`).value;
+
+    if (value8 == "green") {
+      offHint();
+    } else {
+      onHint();
+    }
+  });
+
+  function offHint() {
+    document.querySelectorAll('#letterList tr').forEach(row => {
+      const cell = row.children[4];
+      if (cell) {
+        cell.style.display = 'none';
+      }
+    });
+
+    document.querySelectorAll('#letterList2 tr').forEach(row => {
+      const cell = row.children[4];
+      if (cell) {
+        cell.style.display = 'none';
+      }
+    });
+  }
+
+  function onHint() {
+    document.querySelectorAll('#letterList tr').forEach(row => {
+      const cell = row.children[4];
+      if (cell) {
+        cell.style.display = '';
+      }
+    });
+
+    document.querySelectorAll('#letterList2 tr').forEach(row => {
+      const cell = row.children[4];
+      if (cell) {
+        cell.style.display = '';
+      }
+    });
+  }
 
   function kyoikuColor() {
     for (let i = 1; i <= 7; i++) {

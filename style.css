@@ -343,6 +343,10 @@ dd {
   color: red;
 }
 
+.black {
+  color: black;
+}
+
 .qq:hover {
   display: inline-block;
   transform: rotate(360deg);
