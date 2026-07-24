@@ -506,7 +506,7 @@
 
     allList.textContent = "";
     allTable.textContent = "";
-    allth1.textContent = "標準的な字体";
+    allth1.textContent = "　標準的な字体　";
     allth2.textContent = "出現数";
     allth3.textContent = "標準的でない字体";
     allth4.textContent = "出現数";
@@ -528,7 +528,7 @@
       alltd2.textContent = countShikaruJ;
       alltd3.textContent = "叱";
       alltd4.textContent = countShikaruI;
-      alltd5.textContent = "右が主に使われる（左は常用漢字）";
+      alltd5.textContent = "★右が多数（左は常用漢字だがJIS第3水準、右は第1水準）";
 
       alltr2.appendChild(alltd1);
       alltr2.appendChild(alltd2);
@@ -840,6 +840,9 @@
         cell.style.display = 'none';
       }
     });
+
+    const theHint = document.getElementById('hintWord');
+    theHint.style.display = 'none';
   }
 
   function onHint() {
@@ -856,6 +859,9 @@
         cell.style.display = '';
       }
     });
+
+        const theHint = document.getElementById('hintWord');
+    theHint.style.display = '';
   }
 
   function kyoikuColor() {

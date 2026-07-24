@@ -83,6 +83,11 @@ dd {
   margin: 0 1em;
 }
 
+small{
+  display: block;
+  margin:0 0 0 3em;
+}
+
 #input {
   width: 90%;
   height: 6em;
@@ -207,6 +212,10 @@ dd {
   border: 4px darkslategray dotted;
   margin: 3px 1em;
   padding: 1%;
+}
+
+.big130 {
+  font-size: 130%;
 }
 
 .big160 {
@@ -441,6 +450,16 @@ td:nth-of-type(5) {
 
 #chukiTable {
   display: none;
+}
+
+#hintWord{
+  max-width: fit-content;
+  margin: 1em 3em 1em 4em;
+  padding: 0.5em;
+  font-size: 12px;
+  font-family:Arial, Helvetica, sans-serif;
+  line-height: 23px;
+  background: gainsboro;
 }
 
 @media screen and (max-width: 395px) {
